@@ -1,0 +1,25 @@
+<main class="page landing-page" style="padding-top: 0px;">
+  <section class="clean-block clean-hero" style="background-image:url(&quot;assets/img/tech/image4.jpg&quot;);color:rgba(9, 162, 255, 0.85);">
+      <div class="text">
+
+          <h2>Welcome to your online store collection</h2>
+
+          <p>Select a store from available stores to begin your shopping</p>
+
+          <mat-form-field> 
+            <mat-label>Select your favourite shopping store</mat-label>
+            <mat-select [(value)]="storeId">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let store of shoppingStores" [value]="store.id">
+                {{store.shortName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" (click)="goToItems()" >Explore store</button>
+
+      </div>
+  </section>
+</main>
+
+<!-- /* [style.width]="'35%'" */ -->
