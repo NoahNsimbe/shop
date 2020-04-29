@@ -7,7 +7,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path:'stores/:id', component: CatalogComponent },
+  { path:'stores', component: CatalogComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 

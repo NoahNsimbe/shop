@@ -28,7 +28,7 @@ export class CatalogComponent implements OnInit {
       this.storeId = params['storeId'] ? params['storeId'] : null;
     });
 
-    if (this.storeId != null) this.getItems(this.storeId)
+    this.getItems(this.storeId)
   }
 
   getItems(id: string): void{

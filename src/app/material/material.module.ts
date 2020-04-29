@@ -44,10 +44,11 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { HomeComponent } from '../home/home.component';
-import { FooterComponent } from '../footer/footer.component';
-import { NavbarComponent } from '../navbar/navbar.component';
+//import { FooterComponent } from '../footer/footer.component';
+//import { NavbarComponent } from '../navbar/navbar.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { CatalogComponent } from '../catalog/catalog.component';
 import { MessageComponent } from '../message/message.component';
@@ -55,8 +56,8 @@ import { MessageComponent } from '../message/message.component';
 @NgModule({
   declarations: [
     HomeComponent,
-    FooterComponent,
-    NavbarComponent,
+  //  FooterComponent,
+  //  NavbarComponent,
     PageNotFoundComponent,
     CatalogComponent,
     MessageComponent
@@ -66,6 +67,7 @@ import { MessageComponent } from '../message/message.component';
     A11yModule,
     // ClipboardModule,
      CdkStepperModule,
+     MatFormFieldModule,
      CdkTableModule,
      CdkTreeModule,
      DragDropModule,
@@ -108,9 +110,17 @@ import { MessageComponent } from '../message/message.component';
      ScrollingModule,
   ],
   exports: [
+    HomeComponent,
+    //FooterComponent,
+    //NavbarComponent,
+    PageNotFoundComponent,
+    CatalogComponent,
+    MessageComponent,
+
     A11yModule,
    // ClipboardModule,
     CdkStepperModule,
+    MatFormFieldModule,
     CdkTableModule,
     CdkTreeModule,
     DragDropModule,
@@ -153,8 +163,11 @@ import { MessageComponent } from '../message/message.component';
     ScrollingModule,
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 6000}}
   ],
+  entryComponents: [
+   MessageComponent
+  ]
 })
 
 export class MaterialModule { }

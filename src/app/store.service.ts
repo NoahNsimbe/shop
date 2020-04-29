@@ -14,7 +14,7 @@ export class StoreService {
   constructor(private httpClient: HttpClient) { }
 
   getItems(id: string): Observable<any>{
-    return this.httpClient.post<StoreItems>("stores", id).pipe(
+    return this.httpClient.post<StoreItems>("https://www.storesapi.com", id).pipe(
       retry(3),
       catchError(this.handleError)
     );
@@ -33,12 +33,13 @@ export class StoreService {
         _response = error.error
       }
       else{
-        _response = "Something bad happened. Please try again later"
+        _response = error.status
       }
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
+_response = error.message
 
     return throwError(_response);
   }

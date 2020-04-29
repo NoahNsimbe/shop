@@ -7,7 +7,7 @@ export interface StoreItems {
   image: string;
   brand: string;
   description?: string[];
-  keyFeatures?: string;[]
+  keyFeatures?: string[];
   specifications?: string[];
   subCategory?: string;
 }

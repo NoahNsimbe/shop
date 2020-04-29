@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { MaterialModule } from './material/material.module';
 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -24,17 +24,18 @@ import { MessageComponent } from './message/message.component';
     AppComponent,
     FooterComponent,
     NavbarComponent,
-    HomeComponent,
-    PageNotFoundComponent,
-    CatalogComponent,
-    MessageComponent
+  //  HomeComponent,
+  //  PageNotFoundComponent,
+   // CatalogComponent,
+   // MessageComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+	MaterialModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+	
   ],
   exports: [
     // MatSelectModule,
