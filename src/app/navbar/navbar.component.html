@@ -10,6 +10,24 @@
                 <li class="nav-item" role="presentation"><a class="nav-link" href="shopping-cart.html">Shopping Cart</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="login.html">Login</a></li>
+                <li class="nav-item" role="presentation">
+                    <!-- <a href="#" >
+                        <i class="fas fa-shopping-cart" matTooltip="Cart" matTooltipPosition="above"></i>
+                    </a> -->
+                    <a class="nav-link" aria-expanded="false" routerLink="/cart">
+                        <span class="badge badge-color badge-counter">{{cartCount}}</span>
+                        <i class="fas fa-shopping-cart fa-fw"></i>
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <!-- <a href="#" >
+                        <i class="fas fa-shopping-cart" matTooltip="Cart" matTooltipPosition="above"></i>
+                    </a> -->
+                    <a class="nav-link" aria-expanded="false" routerLink="/cart">
+                        <span class="badge badge-color badge-counter">{{total$ | async}}</span>
+                        <i class="fas fa-shopping-cart fa-fw"></i>
+                    </a>
+                </li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="registration.html">Register</a></li>
             </ul>
     </div>

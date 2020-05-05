@@ -1,7 +1,7 @@
 export interface StoreDetails {
-  id: string;
-  fullName: string;
-  shortName: string;
+  store_id: string;
+  full_name: string;
+  short_name: string;
   location?: string;
   description?: string;
 }

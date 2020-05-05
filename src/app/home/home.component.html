@@ -8,10 +8,10 @@
 
           <mat-form-field [style.width]="'100%'"> 
             <mat-label>Select your favourite shopping store</mat-label>
-            <mat-select  [(value)]="storeId">
+            <mat-select  [(value)]="store_id">
               <mat-option>None</mat-option>
-              <mat-option *ngFor="let store of shoppingStores" [value]="store.id">
-                {{store.shortName}}
+              <mat-option *ngFor="let store of shoppingStores" [value]="store.store_id">
+                {{store.full_name}}
               </mat-option>
             </mat-select>
           </mat-form-field>

@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreDetails } from '../store-details';
+import { StoreDetails } from '../models/store-details';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SetStores } from '../shared/app.actions';
+import { MessageComponent } from '../message/message.component';
+import { Store, Select } from '@ngxs/store';
+import { AppState } from '../shared/app.state'
+import { Observable, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +16,13 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   shoppingStores: StoreDetails[];
-  storeId: string;
+  store_id: string;
 
-  constructor(
-     private router: Router
-  ) {
-    this.storeId = ""
+  @Select(AppState.getStores) stores$;
+
+  constructor( private _router: Router, private _snackBar: MatSnackBar, private _appStore: Store) {
+    this.store_id = "";
+    this._appStore.dispatch( new SetStores() );
    }
 
   ngOnInit() {
@@ -23,15 +30,27 @@ export class HomeComponent implements OnInit {
   }
 
   goToItems() {
-    this.router.navigate(['/stores', { storeId: this.storeId }]);
+    // this._router.navigate(['/stores', { storeId: this.store_id }]);
+    this._router.navigate(['/stores/'+this.store_id]);
   }
 
-  getStores() {
-    this.shoppingStores = [
-      {id: 'xx', shortName: 'Capital Shoppers', fullName: 'Capital Shoppers Supermarket'},
-      {id: 'yy', shortName: 'Mega Standard', fullName: 'Mega Standard Supermarket'},
-      {id: 'zz', shortName: 'Best Buy', fullName: 'Best Buy Supermarket'}
-    ];
+  getStores(): void{
+    this.stores$.subscribe((data: StoreDetails[]) => {
+      this.shoppingStores = data;
+      console.log(this.shoppingStores);
+    });
+
+    // this._storeService.getStores()
+    //   .subscribe((data: StoreDetails[]) => {
+    //     this.shoppingStores = data;
+    //     // console.log(this.shoppingStores);
+	
+    //   }, (error: any) => {
+    //     console.log(error);
+    //     this._snackBar.openFromComponent(MessageComponent, {
+    //       data: error
+    //     });
+    //   });
   }
 
 }

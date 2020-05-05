@@ -1,20 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
-import { StoreItems } from './store-items';
+import { HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { StoreItems } from '../models/store-items';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { StoreDetails } from '../models/store-details';
+import { ServerService } from './server.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
 
-  storeItems: StoreItems[]
+  storeUrl = `${environment.apiUrl}/stores/`
+  // storeUrl = `http://127.0.0.1:8000/stores/`
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private _server: ServerService) { }
 
-  getItems(id: string): Observable<any>{
-    return this.httpClient.post<StoreItems>("https://www.storesapi.com", id).pipe(
+  getItems(store_id: string): Observable<any>{
+    return this.httpClient.post<StoreItems[]>(this.storeUrl, {"store_id": store_id})
+    .pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+
+  getStores(): Observable<StoreDetails[]>{
+    return this.httpClient.get<StoreDetails[]>(this.storeUrl).pipe(
       retry(3),
       catchError(this.handleError)
     );

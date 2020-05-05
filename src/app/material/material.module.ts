@@ -55,12 +55,12 @@ import { MessageComponent } from '../message/message.component';
 
 @NgModule({
   declarations: [
-    HomeComponent,
+    // HomeComponent,
   //  FooterComponent,
   //  NavbarComponent,
-    PageNotFoundComponent,
-    CatalogComponent,
-    MessageComponent
+    // PageNotFoundComponent,
+    // CatalogComponent,
+    // MessageComponent
   ],
   imports: [
     CommonModule,
@@ -110,12 +110,12 @@ import { MessageComponent } from '../message/message.component';
      ScrollingModule,
   ],
   exports: [
-    HomeComponent,
+    // HomeComponent,
     //FooterComponent,
     //NavbarComponent,
-    PageNotFoundComponent,
-    CatalogComponent,
-    MessageComponent,
+    // PageNotFoundComponent,
+    // CatalogComponent,
+    // MessageComponent,
 
     A11yModule,
    // ClipboardModule,

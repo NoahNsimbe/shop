@@ -13,6 +13,12 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { CatalogComponent } from './catalog/catalog.component';
 import { MessageComponent } from './message/message.component';
 
+import { NgxsModule } from '@ngxs/store';
+import { AppState } from './shared/app.state';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { environment } from '.././environments/environment';
+import { RouterModule } from '@angular/router';
+
 
 // import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 // import {MatSelectModule} from '@angular/material/select';
@@ -24,26 +30,29 @@ import { MessageComponent } from './message/message.component';
     AppComponent,
     FooterComponent,
     NavbarComponent,
-  //  HomeComponent,
-  //  PageNotFoundComponent,
-   // CatalogComponent,
-   // MessageComponent
+    HomeComponent,
+    PageNotFoundComponent,
+    CatalogComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
-	MaterialModule,
+	  MaterialModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-	
+    NgxsModule.forRoot([AppState], {developmentMode: !environment.production}),
+    NgxsReduxDevtoolsPluginModule.forRoot()	
   ],
+
   exports: [
     // MatSelectModule,
     // MatInputModule,
     // MatButtonModule
+    // MaterialModule,
   ],
   providers: [
-    // {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+    // {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 1500}}
   ],
   bootstrap: [AppComponent]
 })
