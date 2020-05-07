@@ -16,8 +16,10 @@ import { MessageComponent } from './message/message.component';
 import { NgxsModule } from '@ngxs/store';
 import { AppState } from './shared/app.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { environment } from '.././environments/environment';
-import { RouterModule } from '@angular/router';
+import { CartComponent } from './cart/cart.component';
+import { ItemDetailsComponent } from './item-details/item-details.component';
 
 
 // import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
@@ -33,7 +35,9 @@ import { RouterModule } from '@angular/router';
     HomeComponent,
     PageNotFoundComponent,
     CatalogComponent,
-    MessageComponent
+    MessageComponent,
+    CartComponent,
+    ItemDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,8 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxsModule.forRoot([AppState], {developmentMode: !environment.production}),
-    NgxsReduxDevtoolsPluginModule.forRoot()	
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot({key: AppState})
   ],
 
   exports: [

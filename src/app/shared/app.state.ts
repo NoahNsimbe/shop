@@ -1,6 +1,6 @@
 import { State, Action, StateContext, Select, Selector, Store } from '@ngxs/store';
 import { SetUsername, ConfirmOrder, OrderFailed, OrderSuccess, SetStores, SetItems, AddToCart } from './app.actions';
-import { tap, map, first, delay } from 'rxjs/operators';
+import { tap, map, first, delay, retry } from 'rxjs/operators';
 import { OrderService } from '../services/order.service';
 import { StoreService } from '../services/store.service';
 import { Order } from '../models/order'
@@ -23,7 +23,6 @@ const defaults: AppStateModel = {
   name: 'app',
   defaults
 })
-
 export class AppState {
 
   constructor(private orderService: OrderService, private _storeService: StoreService, private _snackBar: MatSnackBar) {}
@@ -34,6 +33,11 @@ export class AppState {
   }
 
   @Selector()
+  static getItems(state: AppStateModel) {
+      return state.items;
+  }
+
+  @Selector()
   static getCart(state: AppStateModel) {
       return state.cart;
   }
@@ -41,33 +45,27 @@ export class AppState {
   @Action(SetStores)
   setStores({patchState}: StateContext<AppStateModel>){
 
-    this._storeService.getStores()
-      .subscribe((data: StoreDetails[]) => {
-          patchState({ stores: data })
-        },(error: any) => {
-            this._snackBar.openFromComponent(MessageComponent, {
-              data: error
-            });
+    this._storeService.getStores().pipe(
+      tap((data: StoreDetails[]) => { patchState({ stores: data }) }, (error: any) => {
+        this._snackBar.openFromComponent(MessageComponent, {
+          data: error
         });
+      }));
   }
 
   @Action(SetItems)
   setItems(context: StateContext<AppStateModel>, action: SetItems){
 
-    this._storeService.getItems(action.storeId)
-
-      .subscribe((data: StoreItems[]) => {
-
-          const current = context.getState();
-          const items = [...current.items].concat(data);
-
+    this._storeService.getItems(action.storeId).pipe(
+      tap((data: StoreItems[]) => {
+          const items = data;
           context.patchState({ items: items })
-
         },(error: any) => {
             this._snackBar.openFromComponent(MessageComponent, {
               data: error
             });
-        });
+        }));
+
   }
 
 

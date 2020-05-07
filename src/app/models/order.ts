@@ -3,9 +3,10 @@ export interface Order {
     order_time: Date;
     amount: Float64Array;
     items: OrderItem[];
+    status?: string;
   }
 
   export interface OrderItem{
       item_id: string;
-      quantity: string;
+      quantity: number;
   }
