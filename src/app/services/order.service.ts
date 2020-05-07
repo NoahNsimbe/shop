@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponseBase, HttpHeaders } from '@angular/common/http';
-import { StoreItems } from '../models/store-items';
+import { StoreItem } from '../models/store-items';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StoreDetails } from '../models/store-details';
@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment';
 })
 export class OrderService {
 
-  storeItems: StoreItems[]
+  storeItems: StoreItem[]
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

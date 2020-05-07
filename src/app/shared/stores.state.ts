@@ -1,23 +1,27 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { SetStore, SetStores, SetItems } from './stores.actions';
+import { SetStore, SetStores, SetItems, SetItem } from './stores.actions';
 import { tap } from 'rxjs/operators';
 import { StoreService } from '../services/store.service';
 import { StoreDetails } from '../models/store-details'
-import { StoreItems } from '../models/store-items'
+import { StoreItem } from '../models/store-items'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageComponent } from '../message/message.component';
 
 
 export interface StoresStateModel{
     stores: StoreDetails[];
-    items: StoreItems[];
-    activeStore?: StoreDetails;
+    items: StoreItem[];
+    activeStore: StoreDetails;
+    activeItem: StoreItem;
+    itemsPool: StoreItem[];
 };
 
 const defaults: StoresStateModel = {
     stores: Array<StoreDetails>(),
-    items: Array<StoreItems>(),
-    activeStore: null
+    items: Array<StoreItem>(),
+    activeStore: null,
+    activeItem: null,
+    itemsPool: Array<StoreItem>()
 };
 
 @State<StoresStateModel>({
@@ -34,8 +38,13 @@ export class StoresState {
   }
 
   @Selector()
-  static getItem(state: StoresStateModel, itemId: string) {
-       return state.items.find(item => item.item_id == itemId)
+  static getUnitPrice(state: StoresStateModel, itemId: string) {
+      return state.items.find(item => item.item_id == itemId).unit_price
+  }
+
+  @Selector()
+  static getItem(state: StoresStateModel) {
+       return state.activeItem
   }
 
   @Selector()
@@ -50,27 +59,30 @@ export class StoresState {
 
   @Action(SetStores)
   setStores({patchState}: StateContext<StoresStateModel>){
-
-    this._storeService.getStores().pipe(
-      tap((data: StoreDetails[]) => { patchState({ stores: data }) }, (error: any) => {
-        this._snackBar.openFromComponent(MessageComponent, {
+    this._storeService.getStores().subscribe((data: StoreDetails[]) => {
+      patchState({ stores: data })
+    }, (error: any) => {
+      this._snackBar.openFromComponent(MessageComponent, {
           data: error
         });
-      }));
+    });
   }
 
   @Action(SetItems)
   setItems(context: StateContext<StoresStateModel>, action: SetItems){
-
-    this._storeService.getItems(action.storeId).pipe(
-      tap((data: StoreItems[]) => {
-          const items = data;
+    console.log("am here")
+    const current = context.getState().itemsPool;
+    this._storeService.getItems(action.storeId).subscribe(
+      (data: StoreItem[]) => {
+          const items = data
+          const newPool = data.concat(current)
           context.patchState({ items: items })
+          context.patchState({ itemsPool: newPool })
         },(error: any) => {
             this._snackBar.openFromComponent(MessageComponent, {
               data: error
             });
-        }));
+        });
 
   }
 
@@ -88,5 +100,11 @@ export class StoresState {
       context.patchState({ activeStore: activeStore });
       context.dispatch(new SetItems(storeId));
       
+  }
+
+  @Action(SetItem)
+  setItem(context: StateContext<StoresStateModel>, { itemId }: SetItem) {
+      let activeItem = context.getState().items.find(item => item.item_id == itemId)
+      context.patchState({ activeItem: activeItem });
   }
 }

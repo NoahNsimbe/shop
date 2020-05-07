@@ -1,3 +1,96 @@
+<main class="page product-page" style="padding-top: 0px;" >
+    <section class="clean-block clean-product dark">
+        <div class="container">
+            <div class="block-content" style="padding-top: 80px;">
+                <div class="product-info">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="gallery">
+                                <div class="sp-wrap">
+                                    <a [href]="apiUrl+storeItem$.image">
+                                        <img class="img-fluid d-block mx-auto" [src]="apiUrl+storeItem$.image">
+                                    </a>
+                                    <a [href]="apiUrl+storeItem$.image">
+                                        <img class="img-fluid d-block mx-auto" [src]="apiUrl+storeItem$.image">
+                                    </a>
+                                    <a [href]="apiUrl+storeItem$.image">
+                                        <img class="img-fluid d-block mx-auto" [src]="apiUrl+storeItem$.image">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="gallery">
+                                <div class="sp-wrap"><a href="assets/img/tech/image1.jpg"><img class="img-fluid d-block mx-auto" src="assets/img/tech/image1.jpg"></a><a href="assets/img/tech/image1.jpg"><img class="img-fluid d-block mx-auto" src="assets/img/tech/image1.jpg"></a><a href="assets/img/tech/image1.jpg"><img class="img-fluid d-block mx-auto" src="assets/img/tech/image1.jpg"></a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info">
+                                <h3>{{ storeItem$.name }}</h3>
+                                <div class="rating"><img src="assets/img/star.svg"><img src="assets/img/star.svg"><img src="assets/img/star.svg"><img src="assets/img/star-half-empty.svg"><img src="assets/img/star-empty.svg"></div>
+                                <div class="price">
+                                    <h3>{{ storeItem$.unit_price | currency:"UGX " }}</h3>
+                                </div><button class="btn btn-primary" type="button" (click)="addToCart(storeItem$.item_id, storeItem$.name)" ><i class="icon-basket"></i>Add to Cart</button>
+<!--                                 <div class="summary">
+                                    <p *ngFor="let feature of storeItem$.key_features" >
+                                        {{ feature }}
+                                    </p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div>
+                        <ul class="nav nav-tabs" id="myTab">
+                            <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" id="description-tab" href="#description">Description</a></li>
+                            <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" id="specifications-tabs" href="#specifications">Specifications</a></li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane active fade show description" role="tabpanel" id="description">
+                                <p>{{ storeItem$.description }}</p>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <figure class="figure"><img class="img-fluid figure-img" [src]="apiUrl+storeItem$.image"></figure>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <h4>{{ storeItem$.name }}</h4>
+                                        <p>{{ storeItem$.description }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7 right">
+                                        <h4>{{ storeItem$.name }}</h4>
+                                        <p>{{ storeItem$.description }}</p>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <figure class="figure">
+                                            <img class="img-fluid figure-img" [src]="apiUrl+storeItem$.image">
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show specifications" role="tabpanel" id="specifications">
+                                <div class="table-responsive table-bordered">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr *ngFor="let spec of storeItem$.specifications" >
+                                                <td class="stat">{{spec}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+
 <main class="page product-page" style="padding-top: 0px;">
     <section class="clean-block clean-product dark">
         <div class="container">
@@ -108,3 +201,4 @@
         </div>
     </section>
 </main>
+

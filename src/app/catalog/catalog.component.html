@@ -2,120 +2,8 @@
     <section class="clean-block clean-catalog dark">
         <div class="container">
             <div class="block-heading">
-                <h2 class="text-info">Welcome to Shoprite</h2>
-            </div>
-            <div class="content">
-                <div class="row product-list" style="margin-right: 0px;margin-left: 0px;">
-                    <div class="col-sm-6 col-md-4 product-item">
-                        <div class="product-container">
-                            <div class="row">
-                                <div class="col-md-12"><a class="product-image" href="#"><img src="assets/img/iphone6.jpg"></a></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-8">
-                                    <h2><a href="#">iPhone 6s</a></h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-6"><button class="btn btn-light" type="button">Add to cart</button></div>
-                                        <div class="col-6">
-                                            <p class="product-price">Ushs 10,000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 product-item">
-                        <div class="product-container">
-                            <div class="row">
-                                <div class="col-md-12"><a class="product-image" href="#"><img src="assets/img/iphone6.jpg"></a></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-8">
-                                    <h2><a href="#">iPhone 6s</a></h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-6"><button class="btn btn-light" type="button">Add to cart</button></div>
-                                        <div class="col-6">
-                                            <p class="product-price">Ushs 10,000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 product-item">
-                        <div class="product-container">
-                            <div class="row">
-                                <div class="col-md-12"><a class="product-image" href="#"><img src="assets/img/iphone6.jpg"></a></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-8">
-                                    <h2><a href="#">iPhone 6s</a></h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-6"><button class="btn btn-light" type="button">Add to cart</button></div>
-                                        <div class="col-6">
-                                            <p class="product-price">Ushs 10,000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="block-heading">
-                <h2 class="text-info">Welcome to Shoprite</h2>
-            </div>
-            <div class="content">
-                <div class="row product-list" style="margin-right: 0px;margin-left: 0px;">
-                    <div class="col-sm-6 col-md-4 product-item" *ngFor="let item of storeItems">
-                        <div class="product-container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a (click)="viewItem(item.item_id)" class="product-image">
-                                        <img [src]=" apiUrl+item.image">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="row" (click)="viewItem(item.item_id)" >
-                                <div class="col-8">
-                                    <h2>{{item.name}}</h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button mat-raised-button color="primary" (click)="addToCart(item.item_id, item.name)" >Add to cart</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <p class="product-price">{{item.unit_price | currency:'UGX ' }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="block-heading">
-                <h2 class="text-info">{{ storeName | async }}</h2>
-                <h2 class="text-info">{{ total$ | async }}</h2>
+            <!--     <h2 class="text-info">{{ storeName | async }}</h2> -->
+                <h2 class="text-info">Welcome to {{ storeName$ | async }}</h2>
             </div>
             <div class="content">
                 <div class="row product-list" style="margin-right: 0px;margin-left: 0px;">
@@ -123,14 +11,19 @@
                         <div class="product-container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a (click)="viewItem(item.item_id)" class="product-image">
+                                    <a routerLink="/item/{{  item.item_id }}" class="product-image">
                                         <img [src]=" apiUrl+item.image">
                                     </a>
                                 </div>
                             </div>
-                            <div class="row" (click)="viewItem(item.item_id)" >
+<!--                             <div class="row" (click)="viewItem(item.item_id)" >
                                 <div class="col-8">
                                     <h2>{{item.name}}</h2>
+                                </div>
+                            </div> -->
+                            <div class="pointer" class="row" routerLink="/item/{{  item.item_id }}" >
+                                <div class="col-8">
+                                    <h2 class="pointer" >{{item.name}}</h2>
                                 </div>
                             </div>
                             <div class="row">
@@ -150,5 +43,82 @@
                 </div>
             </div>
         </div>
+
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Welcome to Shoprite</h2>
+            </div>
+            <div class="content">
+                <div class="row product-list" style="margin-right: 0px;margin-left: 0px;">
+                    <div class="col-sm-6 col-md-4 product-item">
+                        <div class="product-container">
+                            <div class="row">
+                                <div class="col-md-12"><a class="product-image" href="#"><img src="assets/img/iphone6.jpg"></a></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <h2><a href="#">iPhone 6s</a></h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-6"><button class="btn btn-light" type="button">Add to cart</button></div>
+                                        <div class="col-6">
+                                            <p class="product-price">Ushs 10,000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 product-item">
+                        <div class="product-container">
+                            <div class="row">
+                                <div class="col-md-12"><a class="product-image" href="#"><img src="assets/img/iphone6.jpg"></a></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <h2><a href="#">iPhone 6s</a></h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-6"><button class="btn btn-light" type="button">Add to cart</button></div>
+                                        <div class="col-6">
+                                            <p class="product-price">Ushs 10,000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 product-item">
+                        <div class="product-container">
+                            <div class="row">
+                                <div class="col-md-12"><a class="product-image" href="#"><img src="assets/img/iphone6.jpg"></a></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <h2><a href="#">iPhone 6s</a></h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-6"><button class="btn btn-light" type="button">Add to cart</button></div>
+                                        <div class="col-6">
+                                            <p class="product-price">Ushs 10,000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 </main>

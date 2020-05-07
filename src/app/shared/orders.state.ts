@@ -1,22 +1,20 @@
-import { State, Action, StateContext, Select, Selector, Store } from '@ngxs/store';
+import { State, Action, StateContext, Selector, Store, Select } from '@ngxs/store';
 import {  ConfirmOrder, OrderFailed, OrderSuccess, AddToCart, RemoveFromCart, SetCart, SetOrders, UpdateAmount } from './orders.actions';
 import { tap} from 'rxjs/operators';
 import { OrderService } from '../services/order.service';
-import { StoreService } from '../services/store.service';
-import { Order, OrderItem } from '../models/order'
-import { StoreDetails } from '../models/store-details'
-import { AppStateModel } from '../models/app-state'
-import { StoreItems } from '../models/store-items'
+import { Order, OrderItem } from '../models/order';
+
+import { StoreItem } from '../models/store-items';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageComponent } from '../message/message.component';
-import { StoresState, StoresStateModel } from './stores.state';
+import { StoresStateModel, StoresState } from './stores.state';
 import { Observable } from 'rxjs';
 
 
 export interface OrderStateModel{
-    cart?: OrderItem[];
-    orders?: Order[];
-    total?: number
+    cart: OrderItem[];
+    orders: Order[];
+    total: number;
 };
 
 const defaults: OrderStateModel = {
@@ -26,12 +24,15 @@ const defaults: OrderStateModel = {
 };
 
 @State<OrderStateModel>({
-  name: 'app',
+  name: 'orders',
   defaults
 })
 export class OrderState {
 
-  constructor(private _orderService: OrderService, private _storeService: StoreService, private _snackBar: MatSnackBar, private _appStore: Store) {}
+  items$: Observable<StoreItem[]>;
+
+  constructor(private _orderService: OrderService, private _snackBar: MatSnackBar, private _appStore: Store) {
+  }
 
   @Selector()
   static getAllOrders(state: OrderStateModel) {
@@ -50,46 +51,59 @@ export class OrderState {
 
   @Action(AddToCart)
   addToCart(context: StateContext<OrderStateModel>, action: AddToCart){
-    const count = context.getState().cart.filter(item => item.item_id == action.itemId).length
+
+    const item = context.getState().cart.find(item => item.item_id === action.itemId)
     const current = context.getState();
 
-    let newItem: OrderItem;
+    let newItem: OrderItem = {
+      item_id : undefined,
+      quantity: undefined
+    };
+
     newItem.item_id = action.itemId
-    newItem.quantity = count + 1
+
+    if(item === undefined){
+      newItem.quantity = 1
+    }
+    else{
+      newItem.quantity = item.quantity + 1
+    }
 
     let updatedItems: OrderItem[];
 
     if (newItem.quantity > 1){ 
         let otherItems = current.cart.filter(item => item.item_id != action.itemId)   
         otherItems.push(newItem)
-        updatedItems = [...current.cart].concat(otherItems);
+        updatedItems = otherItems;
     }
     else{
         updatedItems = [...current.cart, newItem];
     }
     
-    context.patchState({ cart: updatedItems })
-    context.dispatch(new UpdateAmount())
+    context.patchState({ cart: updatedItems });
   }
 
   @Action(UpdateAmount)
   updateAmount (context: StateContext<OrderStateModel>){
     const items = context.getState().cart
     let amount = 0.00
+    this.items$ = this._appStore.select(state => state.stores.itemsPool);
 
     items.forEach(item => {
         let itemId = item.item_id;
         let quantity = item.quantity;
 
-        let storeItem = this._appStore.select((state: StoresStateModel) => state.items.find(item => item.item_id = itemId))
-        storeItem.pipe(tap((details: StoreItems) => {
-            let unitPrice = details.unit_price
-            amount = amount + (quantity * unitPrice)
-        }));
+        this.items$.subscribe((data: StoreItem[]) => {
+          let y = data.find(x => x.item_id == itemId);
+          console.log(y)
+          let unitPrice = y.unit_price
+          amount = amount + (quantity * unitPrice)
+        });
+
     });
 
     context.patchState({total: amount})
-
+    
   }
 
   @Action(RemoveFromCart)
@@ -106,7 +120,11 @@ export class OrderState {
     const count = context.getState().cart.filter(item => item.item_id == action.itemId).length
     const current = context.getState();
 
-    let changedItem: OrderItem;
+    let changedItem: OrderItem = {
+      item_id : undefined,
+      quantity: undefined
+    };
+    
     changedItem.item_id = action.itemId
     changedItem.quantity = count - 1
 
@@ -122,30 +140,4 @@ export class OrderState {
     context.dispatch(new UpdateAmount())
 
   }
-
-  @Action(SetOrders)
-  setCart({patchState}: StateContext<AppStateModel>){
-
-    this._storeService.getStores().pipe(
-      tap((data: StoreDetails[]) => { patchState({ stores: data }) }, (error: any) => {
-        this._snackBar.openFromComponent(MessageComponent, {
-          data: error
-        });
-      }));
-  }
-
-  @Action(SetCart)
-  setOrders(context: StateContext<AppStateModel>, action: SetCart){
-
-    this._storeService.getItems(action.storeId).pipe(
-      tap((data: StoreItems[]) => {
-          const items = data;
-          context.patchState({ items: items })
-        },(error: any) => {
-            this._snackBar.openFromComponent(MessageComponent, {
-              data: error
-            });
-        }));
-  }
-
 }

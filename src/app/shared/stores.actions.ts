@@ -1,14 +1,19 @@
 
 export class SetStores {
-    static readonly type = '[app] set stores';
+    static readonly type = '[stores] set stores';
 }
 
 export class SetItems {
-    static readonly type = '[app] set items';
+    static readonly type = '[stores] set items';
     constructor(public storeId: string) {}
 }
 
 export class SetStore {
-    static readonly type = '[app] set store';
+    static readonly type = '[stores] set store';
     constructor(public storeId: string) {}
+}
+
+export class SetItem {
+    static readonly type = '[stores] set item';
+    constructor(public itemId: string) {}
 }

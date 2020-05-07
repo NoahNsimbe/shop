@@ -1,4 +1,4 @@
-export interface StoreItems {
+export interface StoreItem {
   item_id: string;
   store: string;
   name: string;

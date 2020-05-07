@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreItems } from '../models/store-items';
+import { StoreItem } from '../models/store-items';
 import { StoreService } from '../services/store.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { MessageComponent } from '../message/message.component';
 import { environment } from '../../environments/environment';
 import { Store, Select } from '@ngxs/store';
-import { AppState } from '../shared/app.state'
 import { StoresState } from '../shared/stores.state'
 import { SetStore, SetItems } from '../shared/stores.actions';
-import { AddToCart } from '../shared/app.actions';
+import { AddToCart, UpdateAmount } from '../shared/orders.actions';
 import { Observable } from 'rxjs';
-import { AppStateModel } from '../models/app-state';
 import { StoreDetails } from '../models/store-details';
 import { tap } from 'rxjs/operators';
 
@@ -22,17 +20,18 @@ import { tap } from 'rxjs/operators';
 })
 export class CatalogComponent implements OnInit {
 
-  storeItems: StoreItems[];
+  storeItems: StoreItem[];
   apiUrl: string;
-  storeName: string;
-  @Select(StoresState.getItems) items$: Observable<StoreItems[]>;
-  @Select(StoresState.getStore) getStore$: Observable<StoreDetails>;
-  @Select(state => state.stores.activeStore.short_name) total$;
+
+  @Select(StoresState.getItems) items$: Observable<StoreItem[]>;
+  @Select(state => state.stores.activeStore.short_name) storeName$;
+  @Select(state => state.stores.activeStore.store_id) storeId$;
 
   constructor(
     private _snackBar: MatSnackBar,
     private _route: ActivatedRoute,
-    private _appStore: Store
+    private _appStore: Store,
+    private _router: Router
   ) { 
     this.storeItems = new Array();
     this.apiUrl = environment.apiUrl
@@ -48,62 +47,37 @@ export class CatalogComponent implements OnInit {
   getItems(): void{
 
     const store = this._route.snapshot.paramMap.get('store');
+    if (store == undefined){
+      this._router.navigate(['']);
+    }
 
-    this._appStore.dispatch(new SetStore(store)).pipe(tap(()=>{
-
-      this.getStore$.pipe(tap((data: StoreDetails) => {
-        this.storeName = data.short_name
-      }));
-
-    }));
-
-    // this._storeService.getItems(store)
-    //   .subscribe((data: StoreItems[]) => {
-    //     this.storeItems = data;
-    //   }, (error: any) => {
-    //     console.log(error);
-    //     this._snackBar.openFromComponent(MessageComponent, {
-    //       data: error
-    //     });
-    //   });
-
-    // this._storeService.getItems(store)
-    //   .subscribe((data: StoreItems[]) => {
-    //     this.storeItems = data;
-    //   }, (error: any) => {
-    //     console.log(error);
-    //     this._snackBar.openFromComponent(MessageComponent, {
-    //       data: error
-    //     });
-    //   });
+    this._appStore.dispatch(new SetStore(store));
+    
   }
 
   viewItem(item_id: string): void{
 
-    this._snackBar.openFromComponent(MessageComponent, {
-      data: `${item_id} has been selected`
-    });
+    this._router.navigate(['/item', { item: item_id }]);
 
-
-
-    // const store = this._route.snapshot.paramMap.get('store');
-    // console.log(store);
-    // this._storeService.getItems(store)
-    //   .subscribe((data: StoreItems[]) => {
-    //     this.storeItems = data;
-    //   }, (error: any) => {
-    //     console.log(error);
-    //     this._snackBar.openFromComponent(MessageComponent, {
-    //       data: error
-    //     });
-    //   });
+    // this._snackBar.openFromComponent(MessageComponent, {
+    //   data: `${item_id} has been selected`
+    // });
+    
   }
 
   addToCart(item_id: string, item_name: string): void{
-    this._appStore.dispatch(new AddToCart(item_id));
-    this._snackBar.openFromComponent(MessageComponent, {
-      data: `${item_name} has been added to your cart => ${item_id}`
-    });
+
+    this._appStore.dispatch(new AddToCart(item_id)).subscribe(() => {
+
+          this._appStore.dispatch(new UpdateAmount()).subscribe(() => {
+
+            this._snackBar.openFromComponent(MessageComponent, {
+              data: `${item_name} has been added to your cart`
+            });
+
+          })
+
+        });
   }
 
 }

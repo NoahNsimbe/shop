@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, Select, getActionTypeFromInstance } from '@ngxs/store';
-import { AppState } from '../shared/app.state';
+import { Store, Select } from '@ngxs/store';
+import { OrderState } from '../shared/orders.state';
+import { OrderItem } from '../models/order'
 
 @Component({
   selector: 'app-navbar',
@@ -9,23 +10,24 @@ import { AppState } from '../shared/app.state';
 })
 export class NavbarComponent implements OnInit {
 
-  @Select(AppState.getCart) cart$;
-  @Select(state => state.app.cart.length) total$;
-  cartCount: number;
+  @Select(OrderState.getCart) cart$;
+  @Select(state => state.orders.cart.length) total$;
+  // cartCount: number;
 
   constructor(private _appStore: Store) {
-    this.cartCount = 0
+    // this.cartCount = 0
   }
 
   ngOnInit() {
-    this.getCart()
+   // this.getCart()
   }
 
-  getCart(): void{
-    this.cart$.subscribe((data: string[]) => {
-      this.cartCount = data.length
-      console.log(this.cartCount);
-    });
-  }
+  // getCart(): void{
+  //   this.cart$.subscribe((data: OrderItem[]) => {
+  //     this.cartCount = data
+  //     this.cartCount = this.cartCount + 1
+  //     console.log(this.cartCount);
+  //   });
+  // }
 
 }

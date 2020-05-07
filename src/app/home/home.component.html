@@ -5,12 +5,23 @@
           <h2>Welcome to your online store collection</h2>
 
           <p>Select a store from available stores to begin your shopping</p>
-
+<!--
           <mat-form-field [style.width]="'100%'"> 
             <mat-label>Select your favourite shopping store</mat-label>
             <mat-select  [(value)]="store_id">
               <mat-option>None</mat-option>
               <mat-option *ngFor="let store of shoppingStores" [value]="store.store_id">
+                {{store.full_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+-->
+          <mat-form-field [style.width]="'100%'"> 
+            <mat-label>Select your favourite shopping store</mat-label>
+            <mat-select  [(value)]="store_id">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let store of stores$ | async" [value]="store.store_id">
                 {{store.full_name}}
               </mat-option>
             </mat-select>

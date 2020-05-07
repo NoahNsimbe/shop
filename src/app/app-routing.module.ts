@@ -3,11 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { CatalogComponent } from './catalog/catalog.component';
+import { CartComponent } from './cart/cart.component';
+import { ItemDetailsComponent } from './item-details/item-details.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'cart', component: CartComponent },
   { path:'stores/:store', component: CatalogComponent },
+  { path:'item/:item', component: ItemDetailsComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 
