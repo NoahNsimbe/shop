@@ -6,6 +6,7 @@ import { StoreDetails } from '../models/store-details'
 import { StoreItem } from '../models/store-items'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageComponent } from '../message/message.component';
+import { OrderItem } from '../models/order';
 
 
 export interface StoresStateModel{
@@ -35,6 +36,20 @@ export class StoresState {
   @Selector()
   static getStores(state: StoresStateModel) {
       return state.stores;
+  }
+
+  @Selector()
+  static unPackCart(state: StoresStateModel, orderItems: OrderItem[]) {
+
+      let items: StoreItem[];
+      orderItems.forEach(order => {
+        let id = order.item_id
+        let item = state.itemsPool.find(item => item.item_id == id);
+        items.push(item)
+        
+      });
+
+      return items;
   }
 
   @Selector()

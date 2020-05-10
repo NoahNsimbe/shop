@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import { StoreItem } from '../models/store-items';
 import { StoresState } from '../shared/stores.state';
@@ -34,13 +34,12 @@ export class CartComponent implements OnInit {
 
   @Select(state => state.orders.total) total$;
   @Select(OrderState.getCart) cart$: Observable<OrderItem[]>;
+
   cart: Cart[];
   tranport: number;
   overall: number;
   
-
-
-  constructor(private _snackBar: MatSnackBar, private _route: ActivatedRoute, private _appStore: Store) { 
+  constructor(private _router: Router, private _snackBar: MatSnackBar, private _route: ActivatedRoute, private _appStore: Store) { 
     this.storeItems = new Array();
     this.apiUrl = environment.apiUrl;
     this.tranport = 2000
@@ -53,7 +52,8 @@ export class CartComponent implements OnInit {
   }
 
   getTotal(): void{
-    this.addToCart("ITEM-8588-9895-1648", "ITEM-8588-9895-1648")
+    this._router.navigate(['/checkout/']);
+   //  this.addToCart("ITEM-8588-9895-1648", "ITEM-8588-9895-1648")
   }
 
   getItems(): void{

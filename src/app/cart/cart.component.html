@@ -39,7 +39,7 @@
                             <h4><span class="text">Subtotal</span><span class="price">{{total$ | async | currency: "UGX "}}</span></h4>
                             <h4><span class="text">Transportation</span><span class="price">{{tranport | currency: "UGX "}}</span></h4>
                             <h4><span class="text">Total</span><span class="price">{{ overall | currency: "UGX "}}</span></h4>
-                            <button (click)="getTotal()" class="btn btn-primary btn-block btn-lg" type="button">Checkout</button>
+                            <button mat-raised-button color="primary" (click)="getTotal()">Checkout</button>
                         </div>
                     </div>
                 </div>

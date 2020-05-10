@@ -1,3 +1,4 @@
+import { Order } from '../models/order';
 
 export class ConfirmOrder {
 static readonly type = '[orders] confirm order';
@@ -18,7 +19,7 @@ constructor(public storeId: string) {}
 
 export class SetOrders {
 static readonly type = '[orders] set orders';
-constructor(public storeId: string) {}
+constructor(public order: Order) {}
 }
 
 export class GetOrders {

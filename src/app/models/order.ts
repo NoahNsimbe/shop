@@ -1,7 +1,7 @@
 export interface Order {
     address: string;
     order_time: Date;
-    amount: Float64Array;
+    amount: number;
     items: OrderItem[];
     status?: string;
   }
@@ -10,3 +10,16 @@ export interface Order {
       item_id: string;
       quantity: number;
   }
+
+  export interface Locations{
+    districts: string[];
+    regions: string[];
+    }
+
+export interface Districts{
+    districts: string[];
+    }
+
+export interface Regions{
+    regions: string[];
+    }

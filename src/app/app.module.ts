@@ -22,6 +22,7 @@ import { CartComponent } from './cart/cart.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { StoresState } from './shared/stores.state';
 import { OrderState } from './shared/orders.state';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 // import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
@@ -39,7 +40,8 @@ import { OrderState } from './shared/orders.state';
     CatalogComponent,
     MessageComponent,
     CartComponent,
-    ItemDetailsComponent
+    ItemDetailsComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

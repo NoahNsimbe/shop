@@ -2,7 +2,7 @@ import { State, Action, StateContext, Selector, Store, Select } from '@ngxs/stor
 import {  ConfirmOrder, OrderFailed, OrderSuccess, AddToCart, RemoveFromCart, SetCart, SetOrders, UpdateAmount } from './orders.actions';
 import { tap} from 'rxjs/operators';
 import { OrderService } from '../services/order.service';
-import { Order, OrderItem } from '../models/order';
+import { Order, OrderItem, Locations } from '../models/order';
 
 import { StoreItem } from '../models/store-items';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,17 +10,25 @@ import { MessageComponent } from '../message/message.component';
 import { StoresStateModel, StoresState } from './stores.state';
 import { Observable } from 'rxjs';
 
+const location: Locations = {
+  districts: ["Kampaala", "Jinja"],
+  regions: ["Ntinda", "Kamwokya"]
+}
 
 export interface OrderStateModel{
     cart: OrderItem[];
     orders: Order[];
     total: number;
+    locations: Locations;
+
+
 };
 
 const defaults: OrderStateModel = {
     orders: Array<Order>(),
     cart: Array<OrderItem>(),
-    total: 0.00
+    total: 0.00,
+    locations: location
 };
 
 @State<OrderStateModel>({
@@ -42,6 +50,16 @@ export class OrderState {
   @Selector()
   static getPendingOrders(state: OrderStateModel) {
       return state.orders.filter(order => order.status == "PENDING")
+  }
+
+  @Selector()
+  static getDistricts(state: OrderStateModel) {
+      return state.locations.districts
+  }
+
+  @Selector()
+  static getRegions(state: OrderStateModel) {
+      return state.locations.regions
   }
 
   @Selector()
@@ -81,6 +99,44 @@ export class OrderState {
     }
     
     context.patchState({ cart: updatedItems });
+  }
+
+  @Action(SetOrders)
+  setCart(context: StateContext<OrderStateModel>, action: SetOrders){
+
+    const current = context.getState();
+    let updatedOrders: Order[];
+    updatedOrders = [...current.orders, action.order];
+    context.patchState({ orders: updatedOrders });
+
+    // const current = context.getState();
+
+    // let newItem: OrderItem = {
+    //   item_id : undefined,
+    //   quantity: undefined
+    // };
+
+    // newItem.item_id = action.itemId
+
+    // if(item === undefined){
+    //   newItem.quantity = 1
+    // }
+    // else{
+    //   newItem.quantity = item.quantity + 1
+    // }
+
+    // let updatedItems: OrderItem[];
+
+    // if (newItem.quantity > 1){ 
+    //     let otherItems = current.cart.filter(item => item.item_id != action.itemId)   
+    //     otherItems.push(newItem)
+    //     updatedItems = otherItems;
+    // }
+    // else{
+    //     updatedItems = [...current.cart, newItem];
+    // }
+    
+    // context.patchState({ cart: updatedItems });
   }
 
   @Action(UpdateAmount)
