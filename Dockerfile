@@ -1,7 +1,7 @@
 FROM node:14-alpine AS build
 WORKDIR /usr/src/shopApp
 COPY package*.json ./
-RUM npm install
+RUN npm install
 COPY . .
 RUN npm run build
 
