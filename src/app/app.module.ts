@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -14,7 +15,6 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { MessageComponent } from './message/message.component';
 
 import { NgxsModule } from '@ngxs/store';
-// import { AppState } from './shared/app.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { environment } from '.././environments/environment';
@@ -25,12 +25,7 @@ import { OrderState } from './shared/orders.state';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AccountComponent } from './account/account.component';
 import { RegisterComponent } from './register/register.component';
-
-
-// import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-// import {MatSelectModule} from '@angular/material/select';
-// import {MatInputModule} from '@angular/material/input';
-// import {MatButtonModule} from '@angular/material/button';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -53,19 +48,22 @@ import { RegisterComponent } from './register/register.component';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgxsModule.forRoot([StoresState, OrderState], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsStoragePluginModule.forRoot({key: [StoresState, OrderState] })
+    NgxsStoragePluginModule.forRoot({key: [StoresState, OrderState, 'auth'] })
   ],
 
   exports: [
-    // MatSelectModule,
-    // MatInputModule,
-    // MatButtonModule
-    // MaterialModule,
   ],
   providers: [
-    // {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 1500}}
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

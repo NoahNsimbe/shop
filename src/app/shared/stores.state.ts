@@ -104,7 +104,7 @@ export class StoresState {
 
   @Action(SetItems)
   setItems(context: StateContext<StoresStateModel>, action: SetItems){
-    console.log("am here")
+    
     const current = context.getState().itemsPool;
     this._storeService.getItems(action.storeId).subscribe(
       (data: StoreItem[]) => {

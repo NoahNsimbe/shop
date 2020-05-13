@@ -79,7 +79,7 @@ export class CatalogComponent implements OnInit {
             //   data: `${item_name} has been added to your cart`
             // });
 
-          })
+          });
 
         });
   }

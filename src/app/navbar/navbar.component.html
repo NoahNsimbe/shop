@@ -12,7 +12,7 @@
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" routerLink="/catalog">Items</a>
                 </li>
-                
+
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" aria-expanded="false" routerLink="/cart">
                         <mat-icon matTooltip="cart" matTooltipPosition="below" matBadge="{{total$ | async}}" matBadgeSize="small" matBadgeColor="white" svgIcon="shopping-cart" aria-hidden="false" aria-label="Cart"></mat-icon>
@@ -31,7 +31,7 @@
                     <button mat-menu-item>
                         <a class="nav-link" routerLink="/account/login">Login</a>
                     </button>
-                    <mat-divider>Dont have an account ? </mat-divider>
+                    <mat-divider></mat-divider>
                     <button mat-menu-item>
                         <a class="nav-link" routerLink="/account/register">Create Account</a>
                     </button>
@@ -40,8 +40,8 @@
                 </li>
 
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" aria-expanded="false" routerLink="/cart">
-                        <mat-icon matTooltip="Account" matTooltipPosition="below" svgIcon="identity" aria-hidden="false" aria-label="Account"></mat-icon>
+                    <a class="nav-link" aria-expanded="false" routerLink="/account">
+                        <mat-icon matTooltip="My Account" matTooltipPosition="below" svgIcon="identity" aria-hidden="false" aria-label="Account"></mat-icon>
                     </a>
                 </li>
                 <!-- <li class="nav-item" role="presentation"><a class="nav-link" routerLink="/account/register">Register</a></li> -->

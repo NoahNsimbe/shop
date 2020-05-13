@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import {A11yModule} from '@angular/cdk/a11y';
-import {} from '@angular/cdk';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {PortalModule} from '@angular/cdk/portal';
 import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -46,21 +45,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
-import { HomeComponent } from '../home/home.component';
-//import { FooterComponent } from '../footer/footer.component';
-//import { NavbarComponent } from '../navbar/navbar.component';
-import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
-import { CatalogComponent } from '../catalog/catalog.component';
 import { MessageComponent } from '../message/message.component';
 
 @NgModule({
   declarations: [
-    // HomeComponent,
-  //  FooterComponent,
-  //  NavbarComponent,
-    // PageNotFoundComponent,
-    // CatalogComponent,
-    // MessageComponent
   ],
   imports: [
     CommonModule,
@@ -110,13 +98,6 @@ import { MessageComponent } from '../message/message.component';
      ScrollingModule,
   ],
   exports: [
-    // HomeComponent,
-    //FooterComponent,
-    //NavbarComponent,
-    // PageNotFoundComponent,
-    // CatalogComponent,
-    // MessageComponent,
-
     A11yModule,
    // ClipboardModule,
     CdkStepperModule,
@@ -163,7 +144,7 @@ import { MessageComponent } from '../message/message.component';
     ScrollingModule,
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 6000}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 4000}}
   ],
   entryComponents: [
    MessageComponent

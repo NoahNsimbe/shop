@@ -3,26 +3,18 @@
         <div class="container">
             <div class="block-heading">
                 <h2 class="text-info">Welcome to {{ storeName$ | async }}</h2>
-                <!-- <mat-form-field [style.width]="'100%'">
-                    <mat-label>Select your favourite shopping store</mat-label>
-                    <mat-select #store [(value)]="store_id">
-                      <mat-option value="" >None</mat-option>
-                      <mat-option *ngFor="let store of stores$ | async" [value]="store.store_id">
-                        {{store.full_name}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field> -->
 
                   <mat-form-field class="example-form-field"  [style.width]="'50%'" >
                     <mat-label>Search for an item with in the store</mat-label>
-                    <input matInput type="text" [(value)]="serachValue">
-                    <button mat-button *ngIf="serachValue" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                    <input matInput type="text" [(ngModel)]="serachValue">
+                    <button mat-button *ngIf="serachValue" matSuffix mat-icon-button aria-label="Clear" (click)="serachValue=''">
                       <mat-icon>close</mat-icon>
                     </button>
                   </mat-form-field>
-        
+                  &nbsp;
+
                   <button [disabled]="serachValue == ''" mat-raised-button color="primary">Search</button>
-        
+
             </div>
             <div class="content">
                 <div class="row product-list" style="margin-right: 0px;margin-left: 0px;">
@@ -35,11 +27,6 @@
                                     </a>
                                 </div>
                             </div>
-<!--                             <div class="row" (click)="viewItem(item.item_id)" >
-                                <div class="col-8">
-                                    <h2>{{item.name}}</h2>
-                                </div>
-                            </div> -->
                             <div class="pointer" class="row" routerLink="/item/{{  item.item_id }}" >
                                 <div class="col-8">
                                     <h2 class="pointer" >{{item.name}}</h2>
@@ -48,10 +35,13 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
-                                        <div class="col-6">
-                                            <button mat-raised-button color="primary" (click)="addToCart(item.item_id, item.name)" >Add to cart</button>
+                                        <div class="col-2 pointer">
+
+                                            <mat-icon matTooltip="Add to cart" matTooltipPosition="below" (click)="addToCart(item.item_id, item.name)" svgIcon="shopping-cart-add" aria-hidden="false" aria-label="Add to cart"></mat-icon>
+
+                                            <!-- <button mat-raised-button color="primary" (click)="addToCart(item.item_id, item.name)" >Add to cart</button> -->
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-10">
                                             <p class="product-price">{{item.unit_price | currency:'UGX ' }}</p>
                                         </div>
                                     </div>

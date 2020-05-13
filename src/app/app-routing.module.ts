@@ -8,12 +8,13 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AccountComponent } from './account/account.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'account', component: AccountComponent },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'account/login', component: RegisterComponent },
   { path: 'account/register', component: RegisterComponent },
   { path: 'checkout', component: CheckoutComponent },
