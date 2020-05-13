@@ -64,7 +64,7 @@ export class ItemDetailsComponent implements OnInit {
               data: `${item_name} has been added to your cart`
             });
 
-          })
+          });
 
         });
   }

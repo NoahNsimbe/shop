@@ -1,12 +1,13 @@
-import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { SetStore, SetStores, SetItems, SetItem } from './stores.actions';
+import { State, Action, StateContext, Selector, Store } from '@ngxs/store';
+import { SetStore, SetStores, SetItems, SetItem, UnPackCart } from './stores.actions';
 import { tap } from 'rxjs/operators';
 import { StoreService } from '../services/store.service';
 import { StoreDetails } from '../models/store-details'
 import { StoreItem } from '../models/store-items'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageComponent } from '../message/message.component';
-import { OrderItem } from '../models/order';
+import { OrderItem, CartItem } from '../models/order';
+import { OrderStateModel } from './orders.state';
 
 
 export interface StoresStateModel{
@@ -15,6 +16,7 @@ export interface StoresStateModel{
     activeStore: StoreDetails;
     activeItem: StoreItem;
     itemsPool: StoreItem[];
+    cartItems: CartItem[];
 };
 
 const defaults: StoresStateModel = {
@@ -22,7 +24,8 @@ const defaults: StoresStateModel = {
     items: Array<StoreItem>(),
     activeStore: null,
     activeItem: null,
-    itemsPool: Array<StoreItem>()
+    itemsPool: Array<StoreItem>(),
+    cartItems: Array<CartItem>()
 };
 
 @State<StoresStateModel>({
@@ -31,7 +34,7 @@ const defaults: StoresStateModel = {
 })
 export class StoresState {
 
-  constructor(private _storeService: StoreService, private _snackBar: MatSnackBar) {}
+  constructor(private _storeService: StoreService, private _snackBar: MatSnackBar, private _appStore: Store) {}
 
   @Selector()
   static getStores(state: StoresStateModel) {
@@ -39,17 +42,8 @@ export class StoresState {
   }
 
   @Selector()
-  static unPackCart(state: StoresStateModel, orderItems: OrderItem[]) {
-
-      let items: StoreItem[];
-      orderItems.forEach(order => {
-        let id = order.item_id
-        let item = state.itemsPool.find(item => item.item_id == id);
-        items.push(item)
-        
-      });
-
-      return items;
+  static unPackCart(state: StoresStateModel) {
+    return state.cartItems
   }
 
   @Selector()
@@ -72,14 +66,39 @@ export class StoresState {
       return state.items;
   }
 
+  @Action(UnPackCart)
+  unPackCart(context: StateContext<StoresStateModel>, action: UnPackCart){
+
+      let cart = action.items
+      let items: CartItem[] = Array<CartItem>();
+
+      cart.forEach(order => {
+        let item: CartItem = {
+          quantity: 0,
+          item: null
+        };
+        let id = order.item_id;
+        item.quantity = order.quantity
+        item.item = context.getState().itemsPool.find(item => item.item_id == id);
+
+        if (item !== undefined){
+          items.push(item)
+        }
+
+      });
+
+      context.patchState({cartItems: items});
+  }
+
   @Action(SetStores)
   setStores({patchState}: StateContext<StoresStateModel>){
     this._storeService.getStores().subscribe((data: StoreDetails[]) => {
       patchState({ stores: data })
     }, (error: any) => {
-      this._snackBar.openFromComponent(MessageComponent, {
-          data: error
-        });
+      this._snackBar.open(`${error}`);
+      // this._snackBar.openFromComponent(MessageComponent, {
+      //     data: error
+      //   });
     });
   }
 
@@ -94,9 +113,10 @@ export class StoresState {
           context.patchState({ items: items })
           context.patchState({ itemsPool: newPool })
         },(error: any) => {
-            this._snackBar.openFromComponent(MessageComponent, {
-              data: error
-            });
+            this._snackBar.open(`${error}`);
+            // this._snackBar.openFromComponent(MessageComponent, {
+            //   data: error
+            // });
         });
 
   }
@@ -114,7 +134,7 @@ export class StoresState {
 
       context.patchState({ activeStore: activeStore });
       context.dispatch(new SetItems(storeId));
-      
+
   }
 
   @Action(SetItem)

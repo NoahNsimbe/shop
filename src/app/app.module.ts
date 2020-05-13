@@ -23,6 +23,8 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { StoresState } from './shared/stores.state';
 import { OrderState } from './shared/orders.state';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { AccountComponent } from './account/account.component';
+import { RegisterComponent } from './register/register.component';
 
 
 // import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
@@ -41,7 +43,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
     MessageComponent,
     CartComponent,
     ItemDetailsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    AccountComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

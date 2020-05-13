@@ -7,12 +7,12 @@ import { StoresState } from '../shared/stores.state';
 import { Observable } from 'rxjs';
 import { StoreDetails } from '../models/store-details';
 import { environment } from 'src/environments/environment';
-import { SetStore } from '../shared/stores.actions';
+import { SetStore, UnPackCart } from '../shared/stores.actions';
 import { tap } from 'rxjs/operators';
 import { MessageComponent } from '../message/message.component';
 import { AddToCart, UpdateAmount } from '../shared/orders.actions';
 import { OrderState } from '../shared/orders.state';
-import { OrderItem } from '../models/order';
+import { OrderItem, CartItem } from '../models/order';
 
 export interface Cart{
   item: StoreItem;
@@ -26,29 +26,39 @@ export interface Cart{
 })
 export class CartComponent implements OnInit {
 
-  storeItems: StoreItem[];
+  // storeItems: StoreItem[];
   apiUrl: string;
   storeName: string;
-  @Select(StoresState.getItems) items$: Observable<StoreItem[]>;
-  @Select(StoresState.getStore) getStore$: Observable<StoreDetails>;
+  items$: StoreItem[];
+  // @Select(StoresState.getStore) getStore$: Observable<StoreDetails>;
 
-  @Select(state => state.orders.total) total$;
+  @Select(state => state.orders.total) sub_total$;
   @Select(OrderState.getCart) cart$: Observable<OrderItem[]>;
+  @Select(StoresState.unPackCart) cartItems$: Observable<CartItem[]>;
 
   cart: Cart[];
   tranport: number;
-  overall: number;
-  
-  constructor(private _router: Router, private _snackBar: MatSnackBar, private _route: ActivatedRoute, private _appStore: Store) { 
-    this.storeItems = new Array();
+  total: number;
+
+  constructor(private _router: Router, private _snackBar: MatSnackBar, private _route: ActivatedRoute, private _appStore: Store) {
+    this.items$ = new Array();
     this.apiUrl = environment.apiUrl;
     this.tranport = 2000
   }
 
   ngOnInit() {
-    this.total$.subscribe((data: number) => {
-      this.overall = this.tranport + data
-    })
+
+
+
+    this.sub_total$.subscribe((data: number) => {
+      this.total = this.tranport + data
+    });
+
+    this.cart$.subscribe((items: OrderItem[]) => {
+
+      this._appStore.dispatch(new UnPackCart(items));
+
+    });
   }
 
   getTotal(): void{
@@ -77,6 +87,8 @@ export class CartComponent implements OnInit {
     this._snackBar.openFromComponent(MessageComponent, {
       data: `${item_id} has been selected`
     });
+
+    // this._snackBar.open(`${item_name} has been added to your cart`);
   }
 
   addToCart(item_id: string, item_name: string): void{

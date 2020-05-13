@@ -22,6 +22,7 @@ export class CatalogComponent implements OnInit {
 
   storeItems: StoreItem[];
   apiUrl: string;
+  serachValue: string;
 
   @Select(StoresState.getItems) items$: Observable<StoreItem[]>;
   @Select(state => state.stores.activeStore.short_name) storeName$;
@@ -32,9 +33,10 @@ export class CatalogComponent implements OnInit {
     private _route: ActivatedRoute,
     private _appStore: Store,
     private _router: Router
-  ) { 
+  ) {
     this.storeItems = new Array();
     this.apiUrl = environment.apiUrl
+    this.serachValue = ""
   }
 
   ngOnInit() {
@@ -52,7 +54,7 @@ export class CatalogComponent implements OnInit {
     }
 
     this._appStore.dispatch(new SetStore(store));
-    
+
   }
 
   viewItem(item_id: string): void{
@@ -62,7 +64,7 @@ export class CatalogComponent implements OnInit {
     // this._snackBar.openFromComponent(MessageComponent, {
     //   data: `${item_id} has been selected`
     // });
-    
+
   }
 
   addToCart(item_id: string, item_name: string): void{
@@ -71,9 +73,11 @@ export class CatalogComponent implements OnInit {
 
           this._appStore.dispatch(new UpdateAmount()).subscribe(() => {
 
-            this._snackBar.openFromComponent(MessageComponent, {
-              data: `${item_name} has been added to your cart`
-            });
+            this._snackBar.open(`${item_name} has been added to your cart`);
+
+            // this._snackBar.openFromComponent(MessageComponent, {
+            //   data: `${item_name} has been added to your cart`
+            // });
 
           })
 

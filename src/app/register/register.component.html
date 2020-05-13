@@ -1,0 +1,95 @@
+<main class="page registration-page" style="padding-top: 0px;">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Registration</h2>
+            </div>
+            <form>
+                <div class="row" >
+                    <div class="col-sm-6">
+                        <p>
+                            <mat-form-field appearance="legacy">
+                              <mat-label>First Name</mat-label>
+                              <input matInput>
+                              <mat-icon matSuffix>mode_edit</mat-icon>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field appearance="legacy">
+                                <mat-label>Email Address</mat-label>
+                                <input matInput>
+                                <mat-icon matSuffix>mode_edit</mat-icon>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field appearance="legacy">
+                                <mat-label>Phone number</mat-label>
+                                <span matPrefix>+256&nbsp;</span>
+                                <input type="tel" matInput placeholder="766-123-1234">
+                                <mat-icon matSuffix>mode_edit</mat-icon>
+                                <mat-hint>Dont include area code</mat-hint>
+                            </mat-form-field>
+                        </p>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <p>
+                            <mat-form-field appearance="standard">
+                              <mat-label>Last Name</mat-label>
+                              <input matInput>
+                              <mat-icon matSuffix>mode_edit</mat-icon>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Enter your password</mat-label>
+                                <input matInput [type]="hide ? 'password' : 'text'">
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </p>
+                    </div>
+                </div>
+                <button mat-raised-button color="primary">Create Account</button>
+            </form>
+            <div class="block-heading">
+                <h5 class="text-info">Already have an account ? </h5>
+                <h6 class="text-info">Login</h6>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+
+<main class="page login-page" style="padding-top: 0px;">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Log In</h2>
+            </div>
+            <form>
+                <p>
+                    <mat-form-field appearance="standard">
+                      <mat-label>Email Address</mat-label>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-checkbox>CKeep me logged in</mat-checkbox>
+                </p>
+
+                <button mat-raised-button color="primary">Log in</button>
+            </form>
+        </div>
+    </section>
+</main>

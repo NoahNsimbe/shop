@@ -21,7 +21,6 @@ export interface OrderStateModel{
     total: number;
     locations: Locations;
 
-
 };
 
 const defaults: OrderStateModel = {
