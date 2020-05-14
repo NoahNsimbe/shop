@@ -20,9 +20,11 @@ export class OrderService {
       'Authorization': null,
     })
   }
-  orderUrl = `{environment.apiUrl}/order/`
+  orderUrl: string;
 
-  constructor(private _httpClient: HttpClient, private _server: ServerService) { }
+  constructor(private _httpClient: HttpClient, private _server: ServerService) {
+    this.orderUrl = `${environment.apiUrl}/order/`;
+   }
 
   setHeaders(): void{
     this._server.setToken()
@@ -33,17 +35,15 @@ export class OrderService {
 
     this.setHeaders()
 
-    return this._httpClient.get<Order[]>(this.orderUrl, this.httpOptions)
+    return this._httpClient.get<Order[]>(this.orderUrl)
     .pipe(
       retry(3),
     );
   }
 
-  placeOrder(data: Order[]): Observable<any>{
+  placeOrder(data: Order){
 
-    this.setHeaders()
-
-    return this._httpClient.post<Order[]>(this.orderUrl, data, this.httpOptions)
+    return this._httpClient.post<any>(this.orderUrl, data)
     .pipe(
       retry(3),
       catchError(this.handleError)
@@ -54,7 +54,7 @@ export class OrderService {
 
     this.setHeaders()
     
-    return this._httpClient.put<Order[]>(this.orderUrl, data, this.httpOptions)
+    return this._httpClient.put<Order[]>(this.orderUrl, data)
     .pipe(
       retry(3),
       catchError(this.handleError)
@@ -71,6 +71,9 @@ export class OrderService {
     
     else {
       if (error.status == 500){
+        _response = error.error
+      }
+      else if (error.status == 400){
         _response = error.error
       }
       else{

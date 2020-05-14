@@ -36,7 +36,12 @@ export class UpdateAmount {
 }
 
 export class RemoveFromCart {
-static readonly type = '[orders] remove item';
-constructor(public itemId: string) {}
+	static readonly type = '[orders] remove item';
+	constructor(public itemId: string) {}
+}
+
+export class DecrementCart {
+	static readonly type = '[orders] decrement cart';
+	constructor(public itemId: string) {}
 }
   

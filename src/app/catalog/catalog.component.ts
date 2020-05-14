@@ -43,7 +43,7 @@ export class CatalogComponent implements OnInit {
     // this._route.queryParams.subscribe(params => {
     //   this.storeId = params['storeId'] ? params['storeId'] : null;
     // });
-    this.getItems()
+    // this.getItems()
   }
 
   getItems(): void{
@@ -53,7 +53,7 @@ export class CatalogComponent implements OnInit {
       this._router.navigate(['']);
     }
 
-    this._appStore.dispatch(new SetStore(store));
+    
 
   }
 

@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'account/register', component: RegisterComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'stores/:store', component: CatalogComponent },
+  { path: 'catalog', component: CatalogComponent },
   { path: 'item/:item', component: ItemDetailsComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

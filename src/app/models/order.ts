@@ -1,11 +1,16 @@
 import { StoreItem } from './store-items';
 
 export interface Order {
+    order_id: string;
     address: string;
-    order_time: Date;
+    order_time: string;
     amount: number;
-    items: OrderItem[];
+    // products: OrderItem[];
+    products: any;
     status?: string;
+    delivery_agent?: string;
+    delivery_time?: Date;
+    send_email?:boolean;
   }
 
   export interface CartItem {

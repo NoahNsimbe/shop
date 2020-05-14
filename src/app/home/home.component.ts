@@ -7,6 +7,8 @@ import { MessageComponent } from '../message/message.component';
 import { Store, Select } from '@ngxs/store';
 import { StoresState } from '../shared/stores.state'
 import { Observable, throwError } from 'rxjs';
+import { SetStore, SetItems } from '../shared/stores.actions';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +34,10 @@ export class HomeComponent implements OnInit {
 
   goToItems() {
     // this._router.navigate(['/stores', { storeId: this.store_id }]);
-    this._router.navigate(['/stores/'+this.store_id]);
+    this._appStore.dispatch(new SetStore(this.store_id)).subscribe((data: any) => {
+      // this._snackBar.open("PLease hold on as we navigate you to your store ");
+      this._router.navigate(['/stores/'+this.store_id]);
+    });
   }
 
   getStores(): void{

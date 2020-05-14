@@ -1,7 +1,7 @@
 export interface AuthStateModel {
-    username: string | null;
     access: string | null;
     refresh: string | null;
+    user: UserModel;
 }
 
 export interface UserModel {

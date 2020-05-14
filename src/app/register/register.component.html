@@ -25,8 +25,7 @@
                             <mat-form-field appearance="legacy">
                                 <mat-label>Phone number</mat-label>
                                 <span matPrefix>+256&nbsp;</span>
-                                <input type="tel" matInput placeholder="766-123-1234" formControlName="phone">
-                                <mat-icon matSuffix>mode_edit</mat-icon>
+                                <input type="tel" matInput placeholder="123-123-123" formControlName="phone">
                                 <mat-hint>Optional</mat-hint>
                             </mat-form-field>
                         </p>
@@ -44,18 +43,23 @@
                             <mat-form-field appearance="legacy">
                                 <mat-label>Enter your password</mat-label>
                                 <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                                <mat-hint>Must be atleast 5 charatcers long</mat-hint>
                                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                <mat-hint>Must be atleat 5 charatcers long</mat-hint>
+                                
                                 </button>
                             </mat-form-field>
                         </p>
                     </div>
                 </div>
-                <button type="submit" mat-raised-button color="primary" [disabled]="!registerForm.valid">Create Account</button>
-                <div>
-                    <h5 class="text-info">Already have an account ? </h5>
-                    <h6 class="text-info">Login</h6>
+                <div class="row" >
+                    <div class="col" >
+                        <button type="submit" mat-raised-button color="primary" [disabled]="!registerForm.valid">Create Account</button>
+                    </div>
+                    <div class="col" >
+                        <h6 class="text-info">Already have an account ? </h6>
+                        <h6 class="text-info">Login</h6>
+                    </div>
                 </div>
             </form>
 
@@ -73,13 +77,13 @@
             </div>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <p>
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field [style.width]="'100%'" appearance="legacy">
                       <mat-label>Email Address</mat-label>
                       <input matInput formControlName="username">
                     </mat-form-field>
                 </p>
                 <p>
-                    <mat-form-field appearance="legacy">
+                    <mat-form-field [style.width]="'100%'" appearance="legacy">
                         <mat-label>Password</mat-label>
                         <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -91,7 +95,16 @@
                     <mat-checkbox>Keep me logged in</mat-checkbox>
                 </p>
 
-                <button type="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid">Log in</button>
+                
+                <div class="row" >
+                    <div class="col" >
+                        <button type="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid">Log in</button>
+                    </div>
+                    <div class="col" >
+                        <h6 class="text-info">Dont have an account ? </h6>
+                        <h6 class="text-info">Register</h6>
+                    </div>
+                </div>
             </form>
         </div>
     </section>

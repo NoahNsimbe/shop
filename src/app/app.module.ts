@@ -22,6 +22,8 @@ import { CartComponent } from './cart/cart.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { StoresState } from './shared/stores.state';
 import { OrderState } from './shared/orders.state';
+import { AuthState } from './auth/auth.state';
+
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AccountComponent } from './account/account.component';
 import { RegisterComponent } from './register/register.component';
@@ -50,9 +52,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxsModule.forRoot([StoresState, OrderState], {developmentMode: !environment.production}),
+    NgxsModule.forRoot([StoresState, OrderState, AuthState], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsStoragePluginModule.forRoot({key: [StoresState, OrderState, 'auth'] })
+    NgxsStoragePluginModule.forRoot({key: [AuthState, StoresState, OrderState] })
   ],
 
   exports: [

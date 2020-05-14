@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private _appStore: Store) {
 
-    this.randomString = "";
+    this.randomString = this.makeRandom(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
 
     this.loginForm = this.fb.group({
       username: new FormControl("", Validators.required),
@@ -28,9 +28,9 @@ export class RegisterComponent implements OnInit {
       first_name: new FormControl("", Validators.required),
       last_name: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.email, Validators.required]),
-      username: new FormControl(this.randomString, [Validators.minLength(9), Validators.required]),
+      username: new FormControl(this.randomString, [Validators.minLength(5), Validators.required]),
       password: new FormControl("", [Validators.minLength(5), Validators.required]),
-      phone: new FormControl("", Validators.required),
+      phone: new FormControl(""),
     });
 
    }
@@ -39,17 +39,21 @@ export class RegisterComponent implements OnInit {
   }
 
   login(): void{
-    if(this.loginForm.valid){
-      this._appStore.dispatch(new Login(this.loginForm.value));
-    }
-    
+     this._appStore.dispatch(new Login(this.loginForm.value));
   }
 
   register(): void{
-    if(this.registerForm.valid){
-      this._appStore.dispatch(new Register(this.registerForm.value));
-    }
-    
+      console.log(this.registerForm.value)
+      this._appStore.dispatch(new Register({user: this.registerForm.value}));    
   }
+
+  makeRandom(lengthOfCode: number, possible: string) {
+    let text = "";
+    for (let i = 0; i < lengthOfCode; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+      return text;
+  }
+
 
 }

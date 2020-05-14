@@ -60,9 +60,7 @@ export class ItemDetailsComponent implements OnInit {
 
           this._appStore.dispatch(new UpdateAmount()).subscribe(() => {
 
-            this._snackBar.openFromComponent(MessageComponent, {
-              data: `${item_name} has been added to your cart`
-            });
+            this._snackBar.open(`${item_name} has been added to your cart`);
 
           });
 

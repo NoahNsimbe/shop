@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 import { SetStore, UnPackCart } from '../shared/stores.actions';
 import { tap } from 'rxjs/operators';
 import { MessageComponent } from '../message/message.component';
-import { AddToCart, UpdateAmount } from '../shared/orders.actions';
+import { AddToCart, UpdateAmount, RemoveFromCart } from '../shared/orders.actions';
 import { OrderState } from '../shared/orders.state';
 import { OrderItem, CartItem } from '../models/order';
 
@@ -55,9 +55,7 @@ export class CartComponent implements OnInit {
     });
 
     this.cart$.subscribe((items: OrderItem[]) => {
-
       this._appStore.dispatch(new UnPackCart(items));
-
     });
   }
 
@@ -91,19 +89,41 @@ export class CartComponent implements OnInit {
     // this._snackBar.open(`${item_name} has been added to your cart`);
   }
 
-  addToCart(item_id: string, item_name: string): void{
+  removeFromCart(item_id: string, item_name: string): void{
 
-    this._appStore.dispatch(new AddToCart(item_id)).subscribe(() => {
+    // this._snackBar.open(`${item_name} has been removed from your cart`);
 
-          this._appStore.dispatch(new UpdateAmount()).subscribe(() => {
+      this._appStore.dispatch(new RemoveFromCart(item_id));
 
-            this._snackBar.openFromComponent(MessageComponent, {
-              data: `${item_name} has been added to your cart`
-            });
+      // this._appStore.dispatch(new UpdateAmount());
 
-          })
+    // this._appStore.dispatch(new RemoveFromCart(item_id)).pipe(tap(() => {
 
-        });
+    //   this._snackBar.open(`${item_name} has been removed from your cart`);
+
+    //       this._appStore.dispatch(new UpdateAmount()).subscribe(() => {
+
+    //         this._snackBar.open(`amount has been updated`);
+
+    //       })
+
+    //     }));
+  }
+
+  updateCart(item_id: string): void{
+
+    this.cartItems$.subscribe((items: CartItem[]) => {
+      let item = items.find(item => item.item.item_id == item_id);
+      this._snackBar.open(`new quantity is ${item.quantity}`);
+    });
+
+    // this._appStore.dispatch(new AddToCart(item_id)).subscribe(() => {
+
+    //   this._appStore.dispatch(new UpdateAmount()).subscribe(() => {
+
+    //   })
+
+    // });
   }
 
 }

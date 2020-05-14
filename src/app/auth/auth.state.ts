@@ -1,9 +1,10 @@
 import { State, Action, StateContext, Select, Selector, Store } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { AuthStateModel } from './auth.models';
-import { Login, Logout, RefreshToken, Register } from './auth.actions';
-// import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthStateModel, UserModel } from './auth.models';
+import { Login, Logout, RefreshToken, Register, SetUser } from './auth.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 // export interface AuthStateModel {
 //     username: string | null;
@@ -13,8 +14,8 @@ import { Login, Logout, RefreshToken, Register } from './auth.actions';
 
 const defaults: AuthStateModel = {
     access: null,
-    username: null,
-    refresh: null
+    refresh: null,
+    user: null,
 };
 
 @State<AuthStateModel>({
@@ -33,32 +34,44 @@ export class AuthState {
         return !!state.access;
     }
 
-    constructor(private authService: AuthService) {}
+    constructor(private _router: Router, private authService: AuthService, private _snackBar: MatSnackBar) {}
 
     @Action(Login)
     login(ctx: StateContext<AuthStateModel>, action: Login) {
         return this.authService.login(action.payload).pipe(
-        tap((result: { token: string }) => {
+        tap((response: {refresh: string, access: string}) => {        
             ctx.patchState({
-                access: result.token,
-                refresh: result.token,
-                username: action.payload.username
+                access: response.access,
+                refresh: response.refresh,
             });
+            this._router.navigate(['']);
+            ctx.dispatch(new SetUser());
+        }, (error: any) => {
+            this._snackBar.open(`${error}`);
+        })
+        );
+    }
+//3ANJUXJB5U
+    @Action(Register)
+    register(ctx: StateContext<AuthStateModel>, action: Register) {
+        return this.authService.register(action.payload.user).pipe(
+        tap((result: any) => {
+            this._router.navigate(['']);
+        }, (error: any) => {
+            this._snackBar.open(`${error}`);
         })
         );
     }
 
-    @Action(Register)
-    register(ctx: StateContext<AuthStateModel>, action: Register) {
-        // return this.authService.login(action.payload).pipe(
-        // tap((result: { token: string }) => {
-        //     ctx.patchState({
-        //         access: result.token,
-        //         refresh: result.token,
-        //         username: action.payload.username
-        //     });
-        // })
-        // );
+    @Action(SetUser)
+    setUser(ctx: StateContext<AuthStateModel>) {
+        return this.authService.getUser().pipe(
+            tap((user: any) => {
+                console.log(user)
+            }, (error: any) => {
+                this._snackBar.open(`${error}`);
+            })
+        );
     }
 
     @Action(Logout)
@@ -68,7 +81,7 @@ export class AuthState {
         tap(() => {
             ctx.setState({
                 access: null,
-                username: null,
+                user: null,
                 refresh: null
             });
         })

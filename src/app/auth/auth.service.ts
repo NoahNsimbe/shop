@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
-import { catchError, mapTo, tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpResponseBase, HttpHeaders  } from '@angular/common/http';
+import { of, Observable, throwError } from 'rxjs';
+import { catchError, mapTo, tap, retry } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { RefreshToken } from './auth.actions';
+import { UserModel } from '../auth/auth.models';
+import { environment } from '../../environments/environment';
 
 export class Tokens {
   jwt: string;
@@ -14,10 +16,6 @@ export class Tokens {
   providedIn: 'root'
 })
 export class AuthService {
-
-  config = {
-    apiUrl: "string"
-  }
 
 	// private readonly JWT_TOKEN = 'JWT_TOKEN';
 	// private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
@@ -52,20 +50,67 @@ export class AuthService {
     
 
 	login(user: { username: string, password: string }){
-    return this._httpClient.post<any>(`${this.config.apiUrl}/api/token/`, user);
+    return this._httpClient.post<any>(`${environment.apiUrl}/api/token/`, user)
+    .pipe(
+      catchError(this.handleError)
+    );
+
+  }
+
+  register(user: any){
+    return this._httpClient.post<any>(`${environment.apiUrl}/register/`, user)
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   logout(token?:string) {
-    return this._httpClient.post<any>(`${this.config.apiUrl}/api/logout/`, {
+    return this._httpClient.post<any>(`${environment.apiUrl}/api/logout/`, {
       'refreshToken': token
     });
   }
 
+  getUser() {
+    return this._httpClient.get(`${environment.apiUrl}/user/`)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   refreshToken() {
     const refreshToken = this._appStore.selectSnapshot<string>(state => state.auth.refresh);
-    return this._httpClient.post<any>(`${this.config.apiUrl}/api/refresh/`, {
+    return this._httpClient.post<any>(`${environment.apiUrl}/api/refresh/`, {
       'refresh': refreshToken
     });
+  }
+
+    private handleError(error: HttpErrorResponse) {
+
+    let _response = null
+    if (error.error instanceof ErrorEvent) {
+      _response = error.error.message
+      console.error('An error occurred:', _response); 
+    } 
+    
+    else {
+      if (error.status == 500){
+        _response = error.error
+      }
+      else if (error.status == 401){
+        _response = "Invalid credentials";
+      }
+      else if (error.status == 400){
+        _response = "Please log in again with correct credentials";
+      }
+      else{
+        _response = error.status
+      }
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+
+    return throwError(_response);
   }
 
   // isLoggedIn() {

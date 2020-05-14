@@ -11,7 +11,12 @@ export class Logout {
 
 export class Register {
   static readonly type = '[Auth] Register';
-  constructor(public payload: UserModel) {}
+  constructor(public payload: {user: UserModel}) {}
+}
+
+export class SetUser {
+  static readonly type = '[Auth] SetUser';
+  // constructor(public payload: {username: string}) {}
 }
 
 export class RefreshToken {

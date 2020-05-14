@@ -32,10 +32,7 @@ export class StoreService {
   // }
 
   getStores(){
-    return this.httpClient.get(this.storeUrl).pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
+    return this.httpClient.get(this.storeUrl);
   }
 
   getItems(store_id: string){

@@ -19,11 +19,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const access = this._appStore.selectSnapshot<string>(state => state.auth.access);
 
-    // if (this.authService.getJwtToken()) {
-    //   request = this.addToken(request, this.authService.getJwtToken());
-    // }
-
-    request = this.addToken(request, access);
+    if (access) {
+      request = this.addToken(request, access);
+    }
+    
 
     return next.handle(request).pipe(catchError(error => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
@@ -49,10 +48,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return this.authService.refreshToken().pipe(
         switchMap((token: any) => {
+          console.log(`refresh token => ${token}`)
           this.isRefreshing = false;
-          this._appStore.dispatch(new RefreshToken({access : token.jwt}));
-          this.refreshTokenSubject.next(token.jwt);
-          return next.handle(this.addToken(request, token.jwt));
+          this._appStore.dispatch(new RefreshToken({access : token}));
+          this.refreshTokenSubject.next(token);
+          return next.handle(this.addToken(request, token));
         }));
 
     } else {
