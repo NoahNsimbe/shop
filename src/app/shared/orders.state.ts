@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageComponent } from '../message/message.component';
 import { StoresStateModel, StoresState } from './stores.state';
 import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 const location: Locations = {
   districts: ["Kampaala", "Jinja"],

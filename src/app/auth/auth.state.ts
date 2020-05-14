@@ -5,6 +5,7 @@ import { AuthStateModel, UserModel } from './auth.models';
 import { Login, Logout, RefreshToken, Register, SetUser } from './auth.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Injectable } from '@angular/core';
 
 // export interface AuthStateModel {
 //     username: string | null;
