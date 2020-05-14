@@ -34,6 +34,7 @@ const defaults: OrderStateModel = {
   name: 'orders',
   defaults
 })
+@Injectable()
 export class OrderState {
 
   items$: Observable<StoreItem[]>;

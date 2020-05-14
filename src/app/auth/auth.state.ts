@@ -22,6 +22,7 @@ const defaults: AuthStateModel = {
     name: 'auth',
     defaults
 })
+@Injectable()
 export class AuthState {
 
     @Selector()

@@ -32,6 +32,7 @@ const defaults: StoresStateModel = {
   name: 'stores',
   defaults
 })
+@Injectable()
 export class StoresState {
 
   constructor(private _storeService: StoreService, private _snackBar: MatSnackBar, private _appStore: Store) {}
