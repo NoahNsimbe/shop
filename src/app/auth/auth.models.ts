@@ -11,4 +11,5 @@ export interface UserModel {
     email: string | null;
     password?: string | null;
     phone?: string | null;
+    location?: string | null;
 }

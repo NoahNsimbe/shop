@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
-import { Login, Register } from '../auth/auth.actions';
+import { Login, Register, ResetAuth } from '../auth/auth.actions';
 
 @Component({
   selector: 'app-register',
@@ -39,12 +39,17 @@ export class RegisterComponent implements OnInit {
   }
 
   login(): void{
-     this._appStore.dispatch(new Login(this.loginForm.value));
+      this._appStore.dispatch(new ResetAuth()).subscribe(() => {
+        this._appStore.dispatch(new Login(this.loginForm.value));
+      });
+      
   }
 
   register(): void{
-      console.log(this.registerForm.value)
-      this._appStore.dispatch(new Register({user: this.registerForm.value}));    
+      this._appStore.dispatch(new ResetAuth()).subscribe(() => {
+        this._appStore.dispatch(new Register({user: this.registerForm.value}));  
+      });
+        
   }
 
   makeRandom(lengthOfCode: number, possible: string) {

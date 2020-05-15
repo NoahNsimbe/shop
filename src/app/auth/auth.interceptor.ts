@@ -12,6 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  // private refreshTokenSubject: Subject<any> = new BehaviorSubject<any>(null);
 
   constructor(public authService: AuthService, public _appStore: Store) { }
 
@@ -47,12 +48,11 @@ export class AuthInterceptor implements HttpInterceptor {
       this.refreshTokenSubject.next(null);
 
       return this.authService.refreshToken().pipe(
-        switchMap((token: any) => {
-          console.log(`refresh token => ${token}`)
+        switchMap((token: {access: string}) => {
+          this._appStore.dispatch(new RefreshToken({access : token.access}));
           this.isRefreshing = false;
-          this._appStore.dispatch(new RefreshToken({access : token}));
           this.refreshTokenSubject.next(token);
-          return next.handle(this.addToken(request, token));
+          return next.handle(this.addToken(request, token.access));
         }));
 
     } else {
@@ -60,8 +60,67 @@ export class AuthInterceptor implements HttpInterceptor {
         filter(token => token != null),
         take(1),
         switchMap(jwt => {
+          console.log(`jwt => ${jwt}`)
           return next.handle(this.addToken(request, jwt));
         }));
     }
   }
 }
+
+
+
+// @Injectable()
+// export class TokenInterceptor implements HttpInterceptor {
+//     private refreshTokenInProgress = false;
+//     private refreshTokenSubject: Subject<any> = new BehaviorSubject<any>(null);
+
+//     constructor(public authService: AuthService) { }
+//     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+//         if (request.url.indexOf('refresh') !== -1) {
+//             return next.handle(request);
+//         }
+
+//         const accessExpired = this.authService.isAccessTokenExpired();
+//         const refreshExpired = this.authService.isRefreshTokenExpired();
+
+//         if (accessExpired && refreshExpired) {
+//             return next.handle(request);
+//         }
+//         if (accessExpired && !refreshExpired) {
+//             if (!this.refreshTokenInProgress) {
+//                 this.refreshTokenInProgress = true;
+//                 this.refreshTokenSubject.next(null);
+//                 return this.authService.requestAccessToken().pipe(
+//                     switchMap((authResponse) => {
+//                         this.authService.saveToken(AuthService.TOKEN_NAME, authResponse.accessToken);
+//                         this.authService.saveToken(AuthService.REFRESH_TOKEN_NAME, authResponse.refreshToken);
+//                         this.refreshTokenInProgress = false;
+//                         this.refreshTokenSubject.next(authResponse.refreshToken);
+//                         return next.handle(this.injectToken(request));
+//                     }),
+//                 );
+//             } else {
+//                 return this.refreshTokenSubject.pipe(
+//                     filter(result => result !== null),
+//                     take(1),
+//                     switchMap((res) => {
+//                         return next.handle(this.injectToken(request))
+//                     })
+//                 );
+//             }
+//         }
+
+//         if (!accessExpired) {
+//             return next.handle(this.injectToken(request));
+//         }
+//     }
+
+//     injectToken(request: HttpRequest<any>) {
+//         const token = this.authService.getToken(AuthService.TOKEN_NAME);
+//         return request.clone({
+//             setHeaders: {
+//                 Authorization: `Bearer ${token}`
+//             }
+//         });
+//     }
+// }

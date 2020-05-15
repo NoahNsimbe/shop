@@ -2,7 +2,7 @@ import { State, Action, StateContext, Select, Selector, Store } from '@ngxs/stor
 import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { AuthStateModel, UserModel } from './auth.models';
-import { Login, Logout, RefreshToken, Register, SetUser } from './auth.actions';
+import { Login, Logout, RefreshToken, Register, SetUser, ResetAuth } from './auth.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -47,7 +47,7 @@ export class AuthState {
                 refresh: response.refresh,
             });
             this._router.navigate(['']);
-            ctx.dispatch(new SetUser());
+            // ctx.dispatch(new SetUser());
         }, (error: any) => {
             this._snackBar.open(`${error}`);
         })
@@ -57,12 +57,22 @@ export class AuthState {
     @Action(Register)
     register(ctx: StateContext<AuthStateModel>, action: Register) {
         return this.authService.register(action.payload.user).pipe(
-        tap((result: any) => {
+        tap((user: UserModel) => {
+            ctx.patchState({user : user});
             this._router.navigate(['']);
         }, (error: any) => {
             this._snackBar.open(`${error}`);
         })
         );
+    }
+
+    @Action(ResetAuth)
+    resetAuth(ctx: StateContext<AuthStateModel>){
+        ctx.setState({        
+            access: null,
+            refresh: null,
+            user: null
+        });
     }
 
     @Action(SetUser)

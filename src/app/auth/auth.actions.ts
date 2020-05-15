@@ -14,6 +14,10 @@ export class Register {
   constructor(public payload: {user: UserModel}) {}
 }
 
+export class ResetAuth {
+  static readonly type = '[Auth] Reset';
+}
+
 export class SetUser {
   static readonly type = '[Auth] SetUser';
   // constructor(public payload: {username: string}) {}

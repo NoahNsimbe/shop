@@ -6,6 +6,7 @@ import { Store } from '@ngxs/store';
 import { RefreshToken } from './auth.actions';
 import { UserModel } from '../auth/auth.models';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 export class Tokens {
   jwt: string;
@@ -21,7 +22,7 @@ export class AuthService {
 	// private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
 	// private loggedUser: string;
 
-  constructor(private _httpClient: HttpClient, public _appStore: Store) { }
+  constructor(private _router: Router, private _httpClient: HttpClient, public _appStore: Store) { }
 
 
 	// login(user: { username: string, password: string }): Observable<boolean> {
@@ -97,9 +98,11 @@ export class AuthService {
         _response = error.error
       }
       else if (error.status == 401){
+        this._router.navigate(['/account/login']);
         _response = "Invalid credentials";
       }
       else if (error.status == 400){
+        this._router.navigate(['/account/login']);
         _response = "Please log in again with correct credentials";
       }
       else{
@@ -107,7 +110,7 @@ export class AuthService {
       }
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `body was: ${error.error.message}`);
     }
 
     return throwError(_response);
