@@ -17,6 +17,18 @@ const defaults: AuthStateModel = {
     access: null,
     refresh: null,
     user: null,
+    loginForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    },
+    signupForm: {
+      model: undefined,
+      dirty: false,
+      status: '',
+      errors: {}
+    }
 };
 
 @State<AuthStateModel>({

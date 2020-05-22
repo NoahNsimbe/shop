@@ -28,11 +28,10 @@ export class RegisterComponent implements OnInit {
       first_name: new FormControl("", Validators.required),
       last_name: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.email, Validators.required]),
-      username: new FormControl(this.randomString, [Validators.minLength(5), Validators.required]),
+      username: new FormControl([Validators.minLength(5), Validators.required]),
       password: new FormControl("", [Validators.minLength(5), Validators.required]),
       phone: new FormControl(""),
     });
-
    }
 
   ngOnInit() {
@@ -46,6 +45,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void{
+
       this._appStore.dispatch(new ResetAuth()).subscribe(() => {
         this._appStore.dispatch(new Register({user: this.registerForm.value}));  
       });

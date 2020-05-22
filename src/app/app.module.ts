@@ -17,6 +17,7 @@ import { MessageComponent } from './message/message.component';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { CartComponent } from './cart/cart.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { StoresState } from './shared/stores.state';
@@ -29,6 +30,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { environment } from '../environments/environment';
     ItemDetailsComponent,
     CheckoutComponent,
     AccountComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -56,10 +59,14 @@ import { environment } from '../environments/environment';
     NgxsModule.forRoot([StoresState, OrderState, AuthState], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({key: [AuthState, StoresState, OrderState] }),
+    NgxsFormPluginModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-
   exports: [
+  ],
+  entryComponents: [
+    LoginComponent,
+    RegisterComponent
   ],
   providers: [
 

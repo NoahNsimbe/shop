@@ -54,10 +54,10 @@
                         <a class="nav-link" routerLink="/account/orders">My Orders</a>
                     </button> -->
                     <button mat-menu-item>
-                        <a class="nav-link" routerLink="/account/login">Login</a>
+                        <a class="nav-link" (click)="openLogin()">Login</a>
                     </button>
                     <button mat-menu-item>
-                        <a class="nav-link" routerLink="/account/register">Create Account</a>
+                        <a class="nav-link" (click)="register()">Create Account</a>
                     </button>
                     </mat-menu>
                 </li>
