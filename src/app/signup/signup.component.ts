@@ -5,8 +5,8 @@ import { Login, Register, ResetAuth } from '../auth/auth.actions';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
 export class RegisterComponent implements OnInit {
 

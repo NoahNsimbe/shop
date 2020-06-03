@@ -19,7 +19,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './signup/signup.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 
 import { StoresState } from './shared/states/stores.state';

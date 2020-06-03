@@ -4,7 +4,7 @@ import { OrderState } from '../shared/states/orders.state';
 import { OrderItem } from '../models/order';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
-import { RegisterComponent } from '../register/register.component';
+import { RegisterComponent } from '../signup/signup.component';
 
 @Component({
   selector: 'app-navbar',

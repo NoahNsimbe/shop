@@ -7,7 +7,7 @@ import { CartComponent } from './cart/cart.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AccountComponent } from './account/account.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
