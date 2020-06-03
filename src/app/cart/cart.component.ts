@@ -9,7 +9,7 @@ import { StoreDetails } from '../models/store-details';
 import { environment } from 'src/environments/environment';
 import { SetStore, UnPackCart } from '../shared/stores.actions';
 import { tap } from 'rxjs/operators';
-import { MessageComponent } from '../message/message.component';
+// import { MessageComponent } from '../message/message.component';
 import { AddToCart, UpdateAmount, RemoveFromCart } from '../shared/orders.actions';
 import { OrderState } from '../shared/orders.state';
 import { OrderItem, CartItem } from '../models/order';
@@ -81,19 +81,16 @@ export class CartComponent implements OnInit {
   }
 
   viewItem(item_id: string): void{
-
-    this._snackBar.openFromComponent(MessageComponent, {
-      data: `${item_id} has been selected`
-    });
-
-    // this._snackBar.open(`${item_name} has been added to your cart`);
+    this._snackBar.open(`${item_id} has been selected`);
   }
 
   removeFromCart(item_id: string, item_name: string): void{
 
     // this._snackBar.open(`${item_name} has been removed from your cart`);
 
-      this._appStore.dispatch(new RemoveFromCart(item_id));
+      this._appStore.dispatch(new RemoveFromCart(item_id)).subscribe(() => {
+        this._snackBar.open(`${item_name} has been removed from your cart`);
+      });
 
       // this._appStore.dispatch(new UpdateAmount());
 

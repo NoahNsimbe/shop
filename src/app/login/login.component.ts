@@ -12,6 +12,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 export class LoginComponent implements OnInit {
 
 	loginForm: FormGroup;
+  hide = true;
 
   constructor(private _fb: FormBuilder, private _appStore: Store, public _loginRef: MatDialogRef<LoginComponent>) {
 
