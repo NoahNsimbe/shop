@@ -24,8 +24,13 @@ import { StoresState } from './shared/stores.state';
 import { OrderState } from './shared/orders.state';
 import { AuthState } from './auth/auth.state';
 
-import { CheckoutComponent } from './checkout/checkout.component';
-import { AccountComponent } from './account/account.component';
+import { AccountModule } from './account/account.module';
+import { CheckoutModule } from './checkout/checkout.module';
+import { CartModule } from './cart/cart.module';
+import { CatalogModule } from './catalog/catalog.module';
+
+// import { CheckoutComponent } from './checkout/checkout.component';
+// import { AccountComponent } from './account/account.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -39,18 +44,22 @@ import { LoginComponent } from './login/login.component';
     NavbarComponent,
     HomeComponent,
     PageNotFoundComponent,
-    CatalogComponent,
+    // CatalogComponent,
     MessageComponent,
-    CartComponent,
+    // CartComponent,
     ItemDetailsComponent,
-    CheckoutComponent,
-    AccountComponent,
+    // CheckoutComponent,
+    // AccountComponent,
     RegisterComponent,
     LoginComponent
   ],
   imports: [
     BrowserModule,
-	  MaterialModule,
+    MaterialModule,
+    AccountModule,
+    CheckoutModule,
+    CatalogModule,
+    CartModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
