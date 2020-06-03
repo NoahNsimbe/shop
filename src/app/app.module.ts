@@ -18,8 +18,10 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
-import { CartComponent } from './cart/cart.component';
+
+import { RegisterComponent } from './register/register.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
+
 import { StoresState } from './shared/stores.state';
 import { OrderState } from './shared/orders.state';
 import { AuthState } from './auth/auth.state';
@@ -29,9 +31,7 @@ import { CheckoutModule } from './checkout/checkout.module';
 import { CartModule } from './cart/cart.module';
 import { CatalogModule } from './catalog/catalog.module';
 
-// import { CheckoutComponent } from './checkout/checkout.component';
-// import { AccountComponent } from './account/account.component';
-import { RegisterComponent } from './register/register.component';
+
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -44,12 +44,8 @@ import { LoginComponent } from './login/login.component';
     NavbarComponent,
     HomeComponent,
     PageNotFoundComponent,
-    // CatalogComponent,
     MessageComponent,
-    // CartComponent,
     ItemDetailsComponent,
-    // CheckoutComponent,
-    // AccountComponent,
     RegisterComponent,
     LoginComponent
   ],
