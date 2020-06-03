@@ -1,5 +1,5 @@
-import { StoreItem } from '../models/store-items';
-import { OrderItem } from '../models/order';
+import { StoreItem } from '../../models/store-items';
+import { OrderItem } from '../../models/order';
 
 export class SetStores {
     static readonly type = '[stores] set stores';

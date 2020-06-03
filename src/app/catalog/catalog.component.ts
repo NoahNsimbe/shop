@@ -6,9 +6,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { MessageComponent } from '../message/message.component';
 import { environment } from '../../environments/environment';
 import { Store, Select } from '@ngxs/store';
-import { StoresState } from '../shared/stores.state'
-import { SetStore, SetItems } from '../shared/stores.actions';
-import { AddToCart, UpdateAmount } from '../shared/orders.actions';
+import { StoresState } from '../shared/states/stores.state'
+import { SetStore, SetItems } from '../shared/actions/stores.actions';
+import { AddToCart, UpdateAmount } from '../shared/actions/orders.actions';
 import { Observable } from 'rxjs';
 import { StoreDetails } from '../models/store-details';
 import { tap } from 'rxjs/operators';

@@ -3,15 +3,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import { StoreItem } from '../models/store-items';
-import { StoresState } from '../shared/stores.state';
+import { StoresState } from '../shared/states/stores.state';
 import { Observable } from 'rxjs';
 import { StoreDetails } from '../models/store-details';
 import { environment } from 'src/environments/environment';
-import { SetStore, UnPackCart } from '../shared/stores.actions';
+import { SetStore, UnPackCart } from '../shared/actions/stores.actions';
 import { tap } from 'rxjs/operators';
 // import { MessageComponent } from '../message/message.component';
-import { AddToCart, UpdateAmount, RemoveFromCart } from '../shared/orders.actions';
-import { OrderState } from '../shared/orders.state';
+import { AddToCart, UpdateAmount, RemoveFromCart } from '../shared/actions/orders.actions';
+import { OrderState } from '../shared/states/orders.state';
 import { OrderItem, CartItem } from '../models/order';
 
 export interface Cart{

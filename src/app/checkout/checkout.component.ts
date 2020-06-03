@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { StoreDetails } from '../models/store-details';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SetStores } from '../shared/stores.actions';
+import { SetStores } from '../shared/actions/stores.actions';
 import { MessageComponent } from '../message/message.component';
 import { Store, Select } from '@ngxs/store';
-import { StoresState } from '../shared/stores.state'
+import { StoresState } from '../shared/states/stores.state'
 import { Observable, throwError } from 'rxjs';
-import { OrderState } from '../shared/orders.state';
+import { OrderState } from '../shared/states/orders.state';
 import { Locations, Order, OrderItem, CartItem } from '../models/order';
-import { SetOrders, UpdateAmount } from '../shared/orders.actions';
+import { SetOrders, UpdateAmount } from '../shared/actions/orders.actions';
 import { StoreItem } from '../models/store-items';
 import { tap } from 'rxjs/operators';
 

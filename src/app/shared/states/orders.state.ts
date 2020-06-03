@@ -1,13 +1,13 @@
 import { State, Action, StateContext, Selector, Store, Select } from '@ngxs/store';
-import {  ConfirmOrder, OrderFailed, OrderSuccess, DecrementCart, AddToCart, RemoveFromCart, SetCart, SetOrders, UpdateAmount } from './orders.actions';
+import {  ConfirmOrder, OrderFailed, OrderSuccess, DecrementCart, AddToCart, RemoveFromCart, SetCart, SetOrders, UpdateAmount } from '../actions/orders.actions';
 import { tap} from 'rxjs/operators';
-import { OrderService } from '../services/order.service';
-import { Order, OrderItem, Locations } from '../models/order';
+import { OrderService } from '../../services/order.service';
+import { Order, OrderItem, Locations } from '../../models/order';
 
-import { StoreItem } from '../models/store-items';
+import { StoreItem } from '../../models/store-items';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MessageComponent } from '../message/message.component';
-import { StoresStateModel, StoresState } from './states/stores.state';
+import { MessageComponent } from '../../message/message.component';
+import { StoresStateModel, StoresState } from './stores.state';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 

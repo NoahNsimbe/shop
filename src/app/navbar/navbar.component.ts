@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { OrderState } from '../shared/orders.state';
+import { OrderState } from '../shared/states/orders.state';
 import { OrderItem } from '../models/order';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';

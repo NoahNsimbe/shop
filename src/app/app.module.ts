@@ -22,8 +22,8 @@ import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { RegisterComponent } from './register/register.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 
-import { StoresState } from './shared/stores.state';
-import { OrderState } from './shared/orders.state';
+import { StoresState } from './shared/states/stores.state';
+import { OrderState } from './shared/states/orders.state';
 import { AuthState } from './auth/auth.state';
 
 import { AccountModule } from './account/account.module';

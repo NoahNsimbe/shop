@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { StoresState } from '../shared/stores.state';
+import { StoresState } from '../shared/states/stores.state';
 import { Observable } from 'rxjs';
 import { StoreDetails } from '../models/store-details';
 import { StoreItem } from '../models/store-items';
@@ -12,8 +12,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { MessageComponent } from '../message/message.component';
 
-import { SetStore, SetItem } from '../shared/stores.actions';
-import { AddToCart, UpdateAmount } from '../shared/orders.actions';
+import { SetStore, SetItem } from '../shared/actions/stores.actions';
+import { AddToCart, UpdateAmount } from '../shared/actions/orders.actions';
 
 
 @Component({
