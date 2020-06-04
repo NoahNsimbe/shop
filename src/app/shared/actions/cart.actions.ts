@@ -6,7 +6,7 @@ static readonly type = '[cart] sync cart';
 
 export class AddToCart {
 static readonly type = '[cart] add item to cart';
-constructor(public item: Cart) {}
+constructor(public item: string) {}
 }
 
 export class UpdateCartTotal {
@@ -15,12 +15,12 @@ export class UpdateCartTotal {
 
 export class RemoveFromCart {
 	static readonly type = '[cart] remove cart item';
-	constructor(public item: Cart) {}
+	constructor(public item: string) {}
 }
 
 export class DecrementCartItem {
 	static readonly type = '[cart] decrement cart item';
-	constructor(public item: Cart) {}
+	constructor(public item: string) {}
 }
 
 export class IncrementCartItem {

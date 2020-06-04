@@ -1,8 +1,6 @@
-import { StoreItem } from './store-items';
-
 export interface Cart {
-    store: null;
-    item: StoreItem;
+    store: string;
+    item: string;
     quantity: number;
     subtotal: number;
 }

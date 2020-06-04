@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
-import { StoreItem } from '../shared/models/store-items';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { StoreDetails } from '../shared/models/store-details';
 import { environment } from '../../environments/environment';
-import { Cart } from './cart.component';
+import { Cart } from '../shared/models/cart';
 
 @Injectable({
   providedIn: 'root'
