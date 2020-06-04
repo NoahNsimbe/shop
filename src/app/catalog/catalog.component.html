@@ -12,7 +12,6 @@
                     </button>
                   </mat-form-field>
                   &nbsp;
-
                   <button [disabled]="serachValue == ''" mat-raised-button color="primary">Search</button>
 
             </div>
@@ -36,13 +35,10 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-2 pointer">
-
                                             <mat-icon matTooltip="Add to cart" matTooltipPosition="below" (click)="addToCart(item.item_id, item.name)" svgIcon="shopping-cart-add" aria-hidden="false" aria-label="Add to cart"></mat-icon>
-
-                                            <!-- <button mat-raised-button color="primary" (click)="addToCart(item.item_id, item.name)" >Add to cart</button> -->
                                         </div>
                                         <div class="col-10">
-                                            <p class="product-price">{{item.unit_price | currency:'UGX ' }}</p>
+                                            <p class="product-price">{{item.unit_price | currency:'Ugx ' }}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -5,3 +5,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 mat-icon{
 	cursor: pointer;
 }
+.pointer{
+	cursor: pointer;
+}

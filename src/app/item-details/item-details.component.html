@@ -34,8 +34,15 @@
 <!--                                 <div class="rating"><img src="assets/img/star.svg"><img src="assets/img/star.svg"><img src="assets/img/star.svg"><img src="assets/img/star-half-empty.svg"><img src="assets/img/star-empty.svg">
                                 </div> -->
                                 <div class="price">
-                                    <h3>{{ storeItem$.unit_price | currency:"UGX " }}</h3>
-                                </div><button class="btn btn-primary" type="button" (click)="addToCart(storeItem$.item_id, storeItem$.name)" ><i class="icon-basket"></i>Add to Cart</button>
+                                    <h3>{{ storeItem$.unit_price | currency:"Ugx " }}</h3>
+                                </div>
+                                <button class="btn btn-primary" type="button" (click)="addToCart(storeItem$.item_id, storeItem$.name)" >
+                                    <i class="icon-basket"></i>
+                                    Add to Cart
+                                </button>
+                                <div class="col-2 pointer">
+                                    <mat-icon matTooltip="Add to cart" matTooltipPosition="below" (click)="addToCart(storeItem$.item_id, storeItem$.name)" svgIcon="shopping-cart-add" aria-hidden="false" aria-label="Add to cart"></mat-icon>
+                                </div>
 <!--                                 <div class="summary">
                                     <p *ngFor="let feature of storeItem$.key_features" >
                                         {{ feature }}
@@ -96,7 +103,7 @@
 
 
 
-<main class="page product-page" style="padding-top: 0px;">
+<!-- <main class="page product-page" style="padding-top: 0px;">
     <section class="clean-block clean-product dark">
         <div class="container">
             <div class="block-content" style="padding-top: 80px;">
@@ -205,5 +212,5 @@
             </div>
         </div>
     </section>
-</main>
+</main> -->
 

@@ -12,12 +12,12 @@
                             <div class="product" *ngFor="let item of cartItems$ | async" >
 
                                 <div class="row justify-content-center align-items-center">
-                                    <div class="col-md-3">
+                                    <div class="col col-md-3">
                                         <div class="product-image">
                                             <img class="img-fluid d-block mx-auto image" [src]="apiUrl.concat(item.item.image)">
                                         </div>
                                     </div>
-                                    <div class="col-md-3 product-info">
+                                    <div class="col col-md-3 product-info">
                                         <a class="product-name" routerLink="/item/{{ item.item.item_id }}" target="_blank">{{item.item.name}}</a>
                                         <div class="product-specs">
                                             <div>
@@ -25,14 +25,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4 col-md-2 quantity">
+                                    <div class="col col-md-2 quantity">
                                         <mat-icon (click)="removeFromCart(item.item.item_id, item.item.name)"  matTooltip="Remove from cart" matTooltipPosition="below" svgIcon="shopping-cart-remove" aria-hidden="false" aria-label="Remove"></mat-icon>
                                     </div>
-                                    <div class="col-4 col-md-2 quantity">
+                                    <div class="col col-md-2 quantity">
                                         <label class="d-none d-md-block" for="quantity">Quantity</label>
                                         <input (change)="updateCart(item.item.item_id)" type="number" id="{{item.item.item_id}}" min="1" class="form-control quantity-input" value="{{item.quantity}}">
                                     </div>
-                                    <div class="col-4 col-md-2 price">
+                                    <div class="col col-md-2 price">
                                         <span>{{item.item.unit_price | currency: "UGX "}}</span>
                                     </div>
                                 </div>
