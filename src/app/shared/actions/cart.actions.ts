@@ -1,3 +1,6 @@
+import { StoreItem } from '../models/store-items';
+import { Cart } from '../models/cart';
+
 export class SetCart {
 static readonly type = '[cart] set cart';
 constructor(public storeId: string) {}
@@ -6,16 +9,16 @@ constructor(public storeId: string) {}
 
 export class AddToCart {
 static readonly type = '[cart] add item';
-constructor(public itemId: string) {}
+constructor(public item: Cart) {}
 }
 
-export class UpdateAmount {
-    static readonly type = '[cart] update amount';
+export class UpdateCartTotal {
+    static readonly type = '[cart] update total';
 }
 
 export class RemoveFromCart {
 	static readonly type = '[cart] remove item';
-	constructor(public itemId: string) {}
+	constructor(public item: Cart) {}
 }
 
 export class DecrementCart {
@@ -25,7 +28,7 @@ export class DecrementCart {
 
 export class DecrementCartItem {
 	static readonly type = '[cart] decrement cart item';
-	constructor(public itemId: string) {}
+	constructor(public item: Cart) {}
 }
 
 export class IncrementCartItem {
