@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreItem } from '../models/store-items';
+import { StoreItem } from '../shared/models/store-items';
 import { StoreService } from '../services/store.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { StoresState } from '../shared/states/stores.state'
 import { SetStore, SetItems } from '../shared/actions/stores.actions';
 import { AddToCart, UpdateAmount } from '../shared/actions/orders.actions';
 import { Observable } from 'rxjs';
-import { StoreDetails } from '../models/store-details';
+import { StoreDetails } from '../shared/models/store-details';
 import { tap } from 'rxjs/operators';
 
 @Component({

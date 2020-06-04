@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponseBase, HttpHeaders } from '@angular/common/http';
-import { StoreItem } from '../models/store-items';
+import { StoreItem } from '../shared/models/store-items';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { StoreDetails } from '../models/store-details';
+import { StoreDetails } from '../shared/models/store-details';
 import { ServerService } from './server.service'
-import { Order } from '../models/order';
+import { Order } from '../shared/models/order';
 import { environment } from '../../environments/environment';
 
 @Injectable({

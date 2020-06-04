@@ -1,9 +1,5 @@
 import { Order } from '../models/order';
 
-export class ConfirmOrder {
-static readonly type = '[orders] confirm order';
-}
-
 export class OrderSuccess {
 static readonly type = '[orders] order success';
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreDetails } from '../models/store-details';
+import { StoreDetails } from '../shared/models/store-details';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SetStores } from '../shared/actions/stores.actions';

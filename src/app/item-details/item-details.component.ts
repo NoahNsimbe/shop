@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { StoresState } from '../shared/states/stores.state';
 import { Observable } from 'rxjs';
-import { StoreDetails } from '../models/store-details';
-import { StoreItem } from '../models/store-items';
+import { StoreDetails } from '../shared/models/store-details';
+import { StoreItem } from '../shared/models/store-items';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 

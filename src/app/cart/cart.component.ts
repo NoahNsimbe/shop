@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
-import { StoreItem } from '../models/store-items';
+import { StoreItem } from '../shared/models/store-items';
 import { StoresState } from '../shared/states/stores.state';
 import { Observable } from 'rxjs';
-import { StoreDetails } from '../models/store-details';
+import { StoreDetails } from '../shared/models/store-details';
 import { environment } from 'src/environments/environment';
 import { SetStore, UnPackCart } from '../shared/actions/stores.actions';
 import { tap } from 'rxjs/operators';
 // import { MessageComponent } from '../message/message.component';
 import { AddToCart, UpdateAmount, RemoveFromCart } from '../shared/actions/orders.actions';
 import { OrderState } from '../shared/states/orders.state';
-import { OrderItem, CartItem } from '../models/order';
+import { OrderItem, CartItem } from '../shared/models/order';
 
 export interface Cart{
   item: StoreItem;

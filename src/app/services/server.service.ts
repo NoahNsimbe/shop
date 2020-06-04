@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
-import { User, UserLogin } from '../models/user';
+import { User, UserLogin } from '../shared/models/user';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
-import { StoreItem } from '../models/store-items';
+import { StoreItem } from '../shared/models/store-items';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { StoreDetails } from '../models/store-details';
+import { StoreDetails } from '../shared/models/store-details';
 import { environment } from '../../environments/environment';
 
 @Injectable({
