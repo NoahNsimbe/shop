@@ -12,6 +12,7 @@ import { AddToCart, UpdateAmount } from '../shared/actions/orders.actions';
 import { Observable } from 'rxjs';
 import { StoreDetails } from '../shared/models/store-details';
 import { tap } from 'rxjs/operators';
+import { CatalogService } from './catalog.service';
 
 @Component({
   selector: 'app-catalog',
@@ -23,6 +24,8 @@ export class CatalogComponent implements OnInit {
   storeItems: StoreItem[];
   apiUrl: string;
   serachValue: string;
+  searchResults: any;
+  selectedItem: any;
 
   @Select(StoresState.getItems) items$: Observable<StoreItem[]>;
   @Select(state => state.stores.activeStore.short_name) storeName$;
@@ -32,11 +35,14 @@ export class CatalogComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _route: ActivatedRoute,
     private _appStore: Store,
-    private _router: Router
+    private _router: Router,
+    private _catalogService: CatalogService
   ) {
     this.storeItems = new Array();
     this.apiUrl = environment.apiUrl
     this.serachValue = ""
+    this.searchResults = []
+
   }
 
   ngOnInit() {
@@ -65,6 +71,12 @@ export class CatalogComponent implements OnInit {
     //   data: `${item_id} has been selected`
     // });
 
+  }
+
+  searchItem(): void{
+    this._catalogService.searchItem(this.serachValue).subscribe((data: any) => {
+      this.searchResults = data
+    });
   }
 
   addToCart(item_id: string, item_name: string): void{
