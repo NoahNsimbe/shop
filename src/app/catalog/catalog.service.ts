@@ -11,8 +11,14 @@ export class CatalogService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  searchItem(searchValue: string){
-    return this._httpClient.get<any>(`${environment.apiUrl}/items/?search=${searchValue}`)
+  searchItem(searchValue: string, store?: string){
+    let url = `${environment.apiUrl}/items/search=${searchValue}`
+    if (store){
+      url = `${environment.apiUrl}/items/?store=${store}&search=${searchValue}`
+    }
+    console.log(url)
+    
+    return this._httpClient.get<any>(url)
     .pipe(
       catchError(this.handleError)
     );

@@ -6,12 +6,14 @@
 
                   <mat-form-field class="example-form-field"  [style.width]="'50%'" >
                     <mat-label>Search for an item with in the store</mat-label>
-                    <input matInput type="text" [(ngModel)]="serachValue" [matAutocomplete]="auto">
+                    <input matInput type="text" [(ngModel)]="serachValue"  (keyup.enter)="searchItem()">
+                    <!--[matAutocomplete]="auto"
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                         <mat-option *ngFor="let item of searchResults | async" [value]="item.item_id">
                           {{item.name}}
                         </mat-option>
                       </mat-autocomplete>
+                      -->
                     <button mat-button *ngIf="serachValue" matSuffix mat-icon-button aria-label="Clear" (click)="serachValue=''">
                       <mat-icon>close</mat-icon>
                     </button>

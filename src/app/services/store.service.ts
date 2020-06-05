@@ -35,13 +35,22 @@ export class StoreService {
     return this.httpClient.get(this.storeUrl);
   }
 
-  getItems(store_id: string){
+   searchItem(store_id: string){
     return this.httpClient.post(this.storeUrl, {"store_id": store_id}).pipe(
       retry(3),
       catchError(this.handleError)
     );
   }
 
+  getItems(store: string){
+
+    let url = `${environment.apiUrl}/items/?store=${store}`
+    console.log(url)
+    return this.httpClient.get<any>(url)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
   // getStores(){
   //   return this.httpClient.get(this.storeUrl);
   // }

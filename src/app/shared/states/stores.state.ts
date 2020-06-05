@@ -94,14 +94,15 @@ export class StoresState {
 
   @Action(SetStores)
   setStores({patchState}: StateContext<StoresStateModel>){
-    this._storeService.getStores().pipe(tap((data: StoreDetails[]) => {
+    this._storeService.getStores().subscribe((data: StoreDetails[]) => {
       patchState({ stores: data })
     }, (error: any) => {
       this._snackBar.open(`${error}`);
+      console.log(error)
       // this._snackBar.openFromComponent(MessageComponent, {
       //     data: error
       //   });
-    }));
+    });
   }
 
   @Action(SetItems)

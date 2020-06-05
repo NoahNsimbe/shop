@@ -74,9 +74,22 @@ export class CatalogComponent implements OnInit {
   }
 
   searchItem(): void{
-    this._catalogService.searchItem(this.serachValue).subscribe((data: any) => {
-      this.searchResults = data
-    });
+    let idd: any
+     this.storeId$.subscribe((id: any) => {
+       idd = id
+
+     });
+     console.log(idd)
+    if(this.serachValue !== ""){
+      this._catalogService.searchItem(this.serachValue, idd).subscribe((data: any) => {
+        this.searchResults = data
+        console.log(this.searchResults)
+      });
+    }
+    else{
+      this._snackBar.open("Please enter a search value")
+    }
+
   }
 
   addToCart(item_id: string, item_name: string): void{
