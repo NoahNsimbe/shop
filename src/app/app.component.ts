@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Actions, ofActionDispatched } from '@ngxs/store';
 import { Router } from '@angular/router';
-import { Logout } from './auth/auth.actions';
+import { Logout } from './shared/actions/auth.actions';
 
 @Component({
   selector: 'app-root',

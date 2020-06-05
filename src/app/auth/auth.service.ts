@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpResponseBase, HttpHeaders  } from '@
 import { of, Observable, throwError } from 'rxjs';
 import { catchError, mapTo, tap, retry } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
-import { RefreshToken } from './auth.actions';
+import { RefreshToken } from '../shared/actions/auth.actions';
 import { UserModel } from '../auth/auth.models';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';

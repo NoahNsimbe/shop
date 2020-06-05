@@ -5,7 +5,7 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, filter, take, switchMap } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 // import { AuthState } from './auth.state';
-import { RefreshToken } from './auth.actions';
+import { RefreshToken } from '../shared/actions/auth.actions';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

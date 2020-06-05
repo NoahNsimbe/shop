@@ -24,7 +24,7 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 
 import { StoresState } from './shared/states/stores.state';
 import { OrderState } from './shared/states/orders.state';
-import { AuthState } from './auth/auth.state';
+import { AuthState } from './shared/states/auth.state';
 
 import { AccountModule } from './account/account.module';
 import { CheckoutModule } from './checkout/checkout.module';

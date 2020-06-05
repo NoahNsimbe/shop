@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import {  Store } from '@ngxs/store';
-import { AuthState } from './auth.state';
+import { AuthState } from '../shared/states/auth.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({

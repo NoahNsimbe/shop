@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
-import { Login, Register, ResetAuth } from '../auth/auth.actions';
+import { Login, Register, ResetAuth } from '../shared/actions/auth.actions';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
