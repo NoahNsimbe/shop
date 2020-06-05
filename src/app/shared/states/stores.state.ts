@@ -110,9 +110,9 @@ export class StoresState {
     
     const current = context.getState().itemsPool;
     this._storeService.getItems(action.storeId).subscribe(
-      (data: StoreItem[]) => {
-          const items = data
-          const newPool = data.concat(current)
+      (data: any) => {
+          const items = data.results
+          const newPool = items.concat(current)
           context.patchState({ items: items })
           context.patchState({ itemsPool: newPool })
         },(error: any) => {
